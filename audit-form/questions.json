@@ -5,7 +5,6 @@
     {"question" : "Are all staff consistently signing in and out?"},
     {"question" : "Is there evidence of regular daily briefings and/or toolbox talks?"},
     {"question" : "Are delivery notes present?"}
-
 ]}, {
 "first-aid" : [
     {"question" : "Are Emergency arrangements (muster point, fire action, toxic gas etc.) in place and clear?"},
@@ -43,7 +42,6 @@
     {"question" : "Are all harnesses, work position lanyards and other woking at height equipment i good condition, is there a lifting inspection report/date of next inspection tag?"},
     {"question" : "Are all users competent to be using machinery (IPAF, CPCS etc.)?"},
     {"question" : "Are appropriate measures being taken when cutting/grinding tasks are being carried out? (Evidence Abrasive Wheels, Hot Works Permit, Fire Extinguishers ect.)"}
-
 ]} ,  {
 "ppe" : [
     {"question" : "Is the correct PPE being worn by all staff and is it suitable for the task they are carrying out?"},

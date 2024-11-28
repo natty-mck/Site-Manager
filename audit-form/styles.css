@@ -1,7 +1,6 @@
 /* 
 index page
 */
-
 #inspection-metadata {
     position: relative;
     top: 0px;
@@ -120,9 +119,7 @@ table, th, td {
     border: 1px solid black;
     border-radius: 5px;
     height: auto;
-  }
-
-
+}
 
 th{
     background-color: #ada5a5;

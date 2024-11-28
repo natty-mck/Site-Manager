@@ -74,14 +74,18 @@ function displayQuestions(type) {
 
                 const postElement = document.createElement('div');
                 postElement.classList.add('question')
-                postElement.innerHTML = ` <p>${question.question}</p>
+                postElement.innerHTML = ` 
+                <p>${question.question}</p>
+
                 <div id = ${count + "test"}>
                     <input onclick="uploadShow(${count})" type="radio" id="${count + "yes"}" name="${question_name}" value="Yes">
                     <label for="${count + "yes"}" id="Yes-text">Yes</label><br>
                 </div>
 
-                <input onclick="removeUpload(${count})" type="radio" id="${count + "no"}" name="${question_name}" value="No">
+                
+                <input onclick="addCommentBox(${count});" type="radio" id="${count + "no"}" name="${question_name}" value="No">
                 <label for="${count + "no"}" id="No-text">No</label><br>
+                <div id = ${count + "comment"}></div>
 
                 <input onclick="removeUpload(${count})" type="radio" id="${count + "not_insp"}" name="${question_name}" value="Not Inspected">
                 <label for="${count + "not_insp"}" id="Not-Inspected-text">Not Inspected</label>
@@ -96,25 +100,76 @@ function displayQuestions(type) {
     const lineBreak = document.createElement("br");
     container.appendChild(save_button);
     container.appendChild(lineBreak);
-    container.appendChild(exit_button);
 
-    document.getElementsByTagName("footer").style.backgroundColor='red';
 }
 
 function removeUpload(number) {
     var element = document.getElementById(number + "test");
     var child = document.getElementById(number + "upload");
     element.removeChild(child);
+    var child = document.getElementById(number + "takePhoto");
+    element.removeChild(child);
+}
+
+function removeComment(number) {
+    var element = document.getElementById(number + "comment");
+    var child = document.getElementById(number + "comment-container");
+    element.removeChild(child);
+}
+
+function addCommentBox(number) {
+    if (document.getElementById(number + "comment-container") == null) {
+        let commentInputBox  = document.getElementById(number + "comment");
+        commentInputBox.innerHTML +=    ` 
+                                        <div id= "${number + "comment-container"}">
+                                        <textarea style="margin-bottom: 20px;" placeholder="Enter Description"></textarea>
+                                        </div>
+                                        `
+    }
+    removeUpload(number);
+    
 }
 
 
+const photos = [];
+
+function uploadShow(number) {   
+    if (document.getElementById(number + "upload") == null) {
+            var inputBox  = document.getElementById(number + "test");
+            inputBox.innerHTML +=  `
+                                    <button id="${number + "takePhoto"}" title="Take photo" onclick="camaraPreview()"> Use Camara </button>
+                                    <input id= "${number + "upload"}" type='file' class="upload" id='file' name="${number + "upload"}" multiple/></input>
+                                    <img id="preview" name="${number + "photo"}" src="#" alt="Image Preview" style="display: none;"/>
+                                    `
+    
+            document.getElementById(number + "upload").addEventListener('change', function () {
+                let file = this.files[0];
+                let reader = new FileReader();
+        
+                reader.onload = function (event) {
+                    let base64String = event.target.result;
+                    try {
+                        document.getElementById('preview').src = base64String;
+                        photos.push(addquotes(base64String), photo_category, number);            
+                    }
+                    catch {}
+                };
+        
+                reader.readAsDataURL(file);
+            });
+            document.getElementById(number + "yes").checked = true;
+    
+            function addquotes(str) {
+                return `"${str}"`;
+            }
+        }
+    removeComment(number)
+}
 
 function toggleImgAtr() {
     if  (document.getElementById("overlay").style.display == "block") {
         document.getElementById("overlay").style.display = "none";
     }
-
-
     if  (document.getElementById("imgcontributions").style.display == "block") {
         document.getElementById("imgcontributions").style.display = "none";
     } else if  (document.getElementById("imgcontributions").style.display == "" || document.getElementById("imgcontributions").style.display == "none") {
@@ -122,47 +177,6 @@ function toggleImgAtr() {
     }
 
 }
-
-const photos = [];
-
-function uploadShow(number) {
-
-
-    var element = document.getElementById(number + "test");
-    var numberOfChildren = element.getElementsByTagName('*').length
-    
-    if (numberOfChildren === 3) {
-        var inputBox  = document.getElementById(number + "test");
-        inputBox.innerHTML +=  `
-                                <button title="Take photo" onclick="camaraPreview()"> Use Camara </button>
-                                <input id= "${number + "upload"}" type='file' class="upload" id='file' name="${number + "upload"}" multiple/></input>
-                                <img id="preview" name="${number + "photo"}" src="#" alt="Image Preview" style="display: none;"/>
-                                `
-
-        document.getElementById(number + "upload").addEventListener('change', function () {
-            let file = this.files[0];
-            let reader = new FileReader();
-    
-            reader.onload = function (event) {
-                let base64String = event.target.result;
-                try {
-                    document.getElementById('preview').src = base64String;
-                    photos.push(addquotes(base64String), photo_category, number);            
-                }
-                catch {}
-            };
-    
-            reader.readAsDataURL(file);
-        });
-    }
-    document.getElementById(number + "yes").checked = true;
-
-    function addquotes(str) {
-        return `"${str}"`;
-    }
-
-}
-
 
 function FormsPage() {
 
@@ -188,8 +202,8 @@ function BackStart() {
     window.location.replace('auditMeta.html');
 }
 
-function equipmentInspect() {
-    //window.location.replace('equipmentInspect.html');
+function quality() {
+    window.location.replace('quality.html');
 }
 
 function BackOptions() {

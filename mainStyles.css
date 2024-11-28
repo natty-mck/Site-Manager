@@ -2,7 +2,6 @@
 * {
     margin: 0px;
     font-family: Arial, Helvetica, sans-serif;
-    
 }
 
 body {
@@ -65,16 +64,20 @@ footer {
 /*index page*/
 .main-options {
     width: max-content;
-    padding: 3px;
+    padding: 1px;
+    border: 1px solid black;
+    margin: 5px;
 }
 
 .main-options:hover {
     cursor: pointer;
+    opacity: 80%;
 }
 
 .option-icon {
     position: relative;
     height: 125px;
+
 }
 
 .option-text {
