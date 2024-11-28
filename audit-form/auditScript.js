@@ -5,7 +5,7 @@ var divIds = ["PDFpreview-container-1", "PDFpreview-container-2", "PDFpreview-co
 
 
 
-if (window.location.pathname == "/index.html") {
+if (window.location.pathname == "/auditMeta.html") {
     checkMeta();
 }
 
@@ -181,7 +181,7 @@ function FormsPage() {
 }
 
 function BackStart() {
-    window.location.replace('index.html');
+    window.location.replace('auditMeta.html');
 }
 
 function equipmentInspect() {
@@ -595,6 +595,6 @@ async function downloadSplash() {
 function downloadComplete() {
     document.getElementById("downloadSplash").style.display = "none";
     
-    window.location.href = "index.html";
+    window.location.href = "auditMeta.html";
 }
 
