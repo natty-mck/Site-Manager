@@ -143,7 +143,29 @@
         <button id="save_overlay" onclick="save_overlay()"> Save </button>
     </div>
 
+    <!-- take photo from camara overlay -->
+    <section id="camaraPreview">
+      <div class="display-cover">
+          <video id="vid" autoplay></video>
+          <canvas style="display: none;" class="d-none"></canvas>
+      </div>
+
+      <img style="display: none;" class="screenshot-image d-none" alt="">
+
+      <div class="camara-options">
+          <select name="" id="camara-select" class="custom-select">
+              <option value="">Select camera</option>
+          </select>
+
+          <p id="camara-warning"> Warning: No Camara Found </p>
+          <button onclick="capturePhoto()" id="take-photo-button" title="Take Photo">Take Photo</button> <br>
+          <button onclick="closePhoto()" id="take-photo-button" title="Take Photo">Close</button>
+      </div> 
+    </section>
+
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="auditScript.js"></script>
+    <script src="camaraScript.js"></script>
 </body>
 </html>

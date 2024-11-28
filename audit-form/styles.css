@@ -287,3 +287,68 @@ label {
 }
 
 
+/*camara overlay */
+#camaraPreview {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 10%;
+    z-index: 99;
+    width: 400px;
+    height: 500px;
+    background-color: aliceblue;
+    border-radius: 5px;
+    border: 3px grey solid;
+    display: none;
+}
+
+
+.display-cover {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 70%;
+    margin: 5% auto;
+    position: relative;
+}
+
+video {
+    width: 350px;
+    height: 200px;
+    background: rgba(0, 0, 0, 0.2);
+}
+
+
+.camara-options {
+    position: relative;
+    left: 50%;
+    width: max-content;
+    transform: translateX(-50%);
+}
+
+#camara-warning {
+    color: red
+}
+
+.controls {
+    position: relative;
+    top: 20%;
+    width: max-content;
+    height: max-content;
+}
+
+#take-photo-button {
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 10px;
+    background-color: lightseagreen;
+    color: white;
+    border-radius: 4px;
+}
+
+#camara-select {
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+}

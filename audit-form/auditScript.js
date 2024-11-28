@@ -134,6 +134,7 @@ function uploadShow(number) {
     if (numberOfChildren === 3) {
         var inputBox  = document.getElementById(number + "test");
         inputBox.innerHTML +=  `
+                                <button title="Take photo" onclick="camaraPreview()"> Use Camara </button>
                                 <input id= "${number + "upload"}" type='file' class="upload" id='file' name="${number + "upload"}" multiple/></input>
                                 <img id="preview" name="${number + "photo"}" src="#" alt="Image Preview" style="display: none;"/>
                                 `
