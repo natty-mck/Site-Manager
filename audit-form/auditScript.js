@@ -4,9 +4,12 @@ var photo_category;
 var divIds = ["PDFpreview-container-1", "PDFpreview-container-2", "PDFpreview-container-3", "PDFpreview-container-4", "PDFpreview-container-5", "PDFpreview-container-6", "PDFpreview-container-7"];
 
 
-
 if (window.location.pathname == "/auditMeta.html") {
     checkMeta();
+}
+
+function toMainMenu() {
+    window.location.href = ("../index.html");
 }
 
 function checkMeta() {
