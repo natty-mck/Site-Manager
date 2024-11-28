@@ -1,0 +1,62 @@
+<!--Preview before downloading site audit form-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=0.2">
+    <title>PDF download</title>
+    <link rel="stylesheet" href="PDFlayout.css">
+    <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+
+</head>
+<body onload="loadPDF()" style="zoom: 100%">
+    <h1  class="text-center">PDF Download Preview</h1>
+
+    <div id="nav">
+        <button id="back" onclick="back_to_questions()"> Back </button>
+        <button id="PDFdownload" onclick="PDFcalculate();downloadSplash();"> Download </button> <br>    
+    </div>
+
+    <p style="text-align: center;"> Note: once downloaded answer data is cleared. </p>
+
+    <div id="downloadSplash">
+        <div class="typewriter">
+            <p id="downloadSplash-content"> Converting... </p>
+        </div>
+    </div>
+
+    <div class="PDFpreview-container" id= "PDFpreview-container-1">
+    </div>
+
+    <div class="PDFpreview-container" id= "PDFpreview-container-2">
+    </div>
+
+    <div class="PDFpreview-container" id= "PDFpreview-container-3">
+    </div>
+
+    <div class="PDFpreview-container" id= "PDFpreview-container-4">
+    </div>
+
+    <div class="PDFpreview-container" id= "PDFpreview-container-5">
+    </div>
+
+    <div class="PDFpreview-container" id= "PDFpreview-container-6">
+    </div>
+    
+    <div class="PDFpreview-container" id= "PDFpreview-container-7">
+    </div>
+
+    <div class="PDFpreview-photo-container" id= "PDFpreview-photo-container-1">
+        <div class="photoGrid" id="photoGrid-1"></div>
+    </div>
+
+    <div style="height: 20px;"></div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="script.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.3.1/jspdf.umd.min.js"></script>
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.js"></script>
+</body>
+</html>

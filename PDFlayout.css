@@ -1,0 +1,165 @@
+*{
+    overflow: visible;
+}
+
+
+.PDFpreview-container  {
+    margin-top: 20px;
+    position: relative;
+    width: 1344px;
+    max-width: 100%;
+    max-height: calc(1344 * 1.4142);
+    aspect-ratio: 1/1.4142;
+    background-color: whitesmoke;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 2px black solid;
+    font-size: large;
+
+
+
+}
+
+.PDFpreview-photo-container {
+    margin-top: 20px;
+    position: relative;
+    width: 1344px;
+    max-width: 100%;
+    max-height: calc(1344 * 1.4142);
+    aspect-ratio: 1/1.4142;
+    background-color: whitesmoke;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 2px black solid;
+    font-size: large;
+
+}
+
+
+#PDFdownload {
+    position: relative;
+    border-radius: 10px;
+    padding: 5px;
+    background-color: cornflowerblue;
+    color: white;
+    margin-top: 10px;
+    width: 90px;
+}
+
+#PDFdownload:hover {
+    background-color: rgb(49, 97, 128);
+}
+
+#back {
+    position: relative;
+    border-radius: 10px;
+    padding: 5px;
+    background-color: cornflowerblue;
+    color: white;
+    margin-top: 10px;
+    width: 90px;
+}
+
+#back:hover {
+    background-color: rgb(49, 97, 128);
+}
+
+#nav {
+    position: relative;
+    left: 50%;
+    width: max-content;
+    transform: translateX(-50%);
+}
+
+@media print {
+    #content {
+        font-size: 12px; 
+        margin: 0; 
+    }
+}
+
+#lastPage {
+    position: absolute;
+    top: 50%;
+    right: calc(100% + 20px);
+    transform: translateY(-50%);
+}
+
+#nextPage {
+    position: absolute;
+    top: 50%;
+    left: calc(100% + 20px);
+    transform: translateY(-50%);
+}
+
+.audit-meta {
+    text-align: left;
+    font-size: 23px;
+    margin-left: 8px;
+}
+
+.imgPDF {
+    position: relative;
+    max-height: 600px;
+    max-width: 600px;
+    width: 100%;
+    margin-left: 10px;
+  
+
+}
+
+.photoGrid {
+    position: relative;
+    display: grid;
+    grid-template-columns: auto auto auto;
+    grid-template-rows: auto auto auto auto;
+    width: 1200px;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-left: 10px;
+
+}
+
+
+#downloadSplash {
+    position: fixed;
+    height: 50px;
+    width: 200px;
+    background-color: #2e3192;
+    top: 30%;
+    text-align: center;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 99;
+    border: gray solid 2px;
+    border-radius: 6px;
+    display: none;
+}
+
+#downloadSplash-content {
+    position: relative;
+    color: white;
+    top: 50%;
+}
+
+.typewriter{
+    overflow: hidden; /* Ensures the content is not revealed until the animation */
+    border-right: .1em solid orange; /* The typwriter cursor */
+    white-space: nowrap; /* Keeps the content on a single line */
+    margin: 0 auto; /* Gives that scrolling effect as the typing happens */
+    letter-spacing: .15em; /* Adjust as needed */
+    animation: 
+      typing 3.5s steps(100, end),
+      blink-caret .75s step-end infinite;
+}
+
+
+/* The typing effect */
+@keyframes typing {
+    from { width: 0 }
+    to { width: 100% }
+}
+
+.pdfInnerText {
+    margin-left: 10px;
+}

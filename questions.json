@@ -1,0 +1,82 @@
+[{
+"documentation" : [
+    {"question" : "Are Risk Assessment and Method Statements suitable for the task and in date?"},
+    {"question" : "Have all staff been inducted?"},
+    {"question" : "Are all staff consistently signing in and out?"},
+    {"question" : "Is there evidence of regular daily briefings and/or toolbox talks?"},
+    {"question" : "Are delivery notes present?"}
+
+]}, {
+"first-aid" : [
+    {"question" : "Are Emergency arrangements (muster point, fire action, toxic gas etc.) in place and clear?"},
+    {"question" : "Are first aid provisions, first aiders and the accident book available?"},
+    {"question" : "Are there sufficient first aiders onsite?"},
+    {"question" : "Are there any near misses or other safety observations from the client or others?"},
+    {"question" : "Are all fire extinguishers in date?"}
+]}, {
+"welfare" : [
+    {"question" : "Is there clean potable water available?"},
+    {"question" : "Are there sufficient toilet facilities?"},
+    {"question" : "Is there clean hot and cold water for washing?"},
+    {"question" : "Is there a clean canteen for eating, drinking, rest etc.?"},
+    {"question" : "Is there sufficient traffic management/segregation?"},
+    {"question" : "Is there sufficient secure storage and organisation of parts?"}
+]} , {
+"COSSH" : [
+    {"question" : "Are HAVS being correctly filled in?"},
+    {"question" : "Are staff all face fit tested and using RPE correctly?"},
+    {"question" : "Are nuisance dusts being controlled?"},
+    {"question" : "Is there evidence of good manual handling being carried out?"},
+    {"question" : "Are COSSH Assessments, Material Safety Datasheets and suitable COSSH storage facilities available?"},
+    {"question" : "Do all staff have a valid safety critical assessment?"},
+    {"question" : "Carry out Random D&A Testing - Have staff declared any medication to site manager?"},
+    {"question" : "Are there any noise issues which need to be addressed, is hearing protection necessary?"}
+]} , {
+"equipment" : [
+    {"question" : "Does all electrical equipment have a  valid PAT certificate and sticker signifying next inspection including chargers etc. ?"},
+    {"question" : "Are records of hired plant available for inspection included any noted damage etc. ?"},
+    {"question" : "Does all lifting equipment have the correct colour coded tag and inspection certificate present?"},
+    {"question" : "Does all electrical test equipment have the necessary calibration certificates and a sticker to indicate the date of the next inspection/calibration?"},
+    {"question" : "Is all plant kept over a plant nappy?"},
+    {"question" : "Are daily/weekly inspections being recorded for plant such as MEWPS and Telehandlers?"},
+    {"question" : "Is plant suitable and are all expected safety systmes such as reversing cameras, sky siren etc. fitted?"},
+    {"question" : "Are all harnesses, work position lanyards and other woking at height equipment i good condition, is there a lifting inspection report/date of next inspection tag?"},
+    {"question" : "Are all users competent to be using machinery (IPAF, CPCS etc.)?"},
+    {"question" : "Are appropriate measures being taken when cutting/grinding tasks are being carried out? (Evidence Abrasive Wheels, Hot Works Permit, Fire Extinguishers ect.)"}
+
+]} ,  {
+"ppe" : [
+    {"question" : "Is the correct PPE being worn by all staff and is it suitable for the task they are carrying out?"},
+    {"question" : "Is all PPE in good condition i.e. no exposed Toe Caps on boots ect. ?"}
+]} , {
+"high-risk" : [
+    {"question" : "Do any tasks require Breaking Ground?"},
+    {"question" : "Has a suitable assessment been carried out?"},
+    {"question" : "Have permits been issued?"},
+    {"question" : "Is the equipment suitable for the purpose category etc.?"},
+    {"question" : "Has equipment been calibrated/inspected?"},
+    {"question" : "Are staff trained to use the specified CAT/Genny?"},
+
+    {"question" : "Are mobile tower scaffolds properly assembled? (PASMA user, toe boards, outriggers, inspection tag)"},
+    {"question" : "Are MEWP operators wearing work position lanyard and harness?"},
+    {"question" : "Are podium steps being used instead of step-ladders to be used. Do they have an inspection tag?"},
+    {"question" : "Only where they are the last resort are stepladders to be used. Do they have an inspection tag?"},
+    {"question" : "Are any other working at height systems being adopted? (suitable, inspected?)"},
+
+    {"question" : "Has the confined space between categorised using a scoring matrix?"},
+    {"question" : "Is there a seperate specific risk assessment for entry, with emergency requirements?"},
+    {"question" : "Are entrants trained in the correct category for entry?"},
+    {"question" : "Has all escape equipment been inspected?"},
+    {"question" : "Has all lifing equipment been inspected?"},
+    {"question" : "Have all gas monitors been inspected?"},
+    {"question" : "Is all permitted electrical equipment fully charged?"},
+
+    {"question" : "Is there a specific lift plan for the load? Has it been carried out by a suitable person?"},
+    {"question" : "Has all lifting equipment and accessories been visually inspected?"},
+    {"question" : "Does all lifting equipment and accessories have an in date thorough inspection certificate?"},
+    {"question" : "Are persons involved suitably qualified for the opertaions?"},
+    {"question" : "Have safety precautions been set up? Barries ect."},
+    {"question" : "Is there evidence of a daily breifing on HRO opertaions?"}
+
+]}
+]

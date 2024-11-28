@@ -1,0 +1,148 @@
+<!--Page to display form options-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Site Audit</title>
+    <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+</head>
+<body>
+    <section id="header"> 
+        <div class="row">
+            <div class="col-md-12">
+                <h1 id="heading-tex">Site Audit Form</h1>
+            </div>
+
+            <div class="col-md-12">
+                <img src="images/glasswell-last-logo-2.png" id="logo">
+            </div>
+        </div>
+
+        <button onclick="toggleImgAtr()" id="siteAssets">?</button>
+    </section> 
+
+    <div class = "divider"></div>
+
+    <button onclick="BackStart()" id="button-back-start" class="btn btn-primary" > Back </button>
+
+    <div id = "imgcontributions">
+      <br>
+      <p> Icon Assets Attributions </p>
+      <a href="https://www.iconfinder.com/icons/9110166/first_aid_icon">First aid Icon </a>: Jam Icons<br>
+      <a href="https://www.iconfinder.com/icons/103515/text_document_information_icon"> Documentation Icon </a>: PICOL<br>
+      <a href="https://www.iconfinder.com/icons/6989143/wellness_workout_strength_vitality_healthy_strong_health_icon"> Welfare Icon </a>: Raffiico Creative Studio. Ltd<br>
+      <a href="https://www.iconfinder.com/icons/9194683/construction_contractor_builder_worker_job_occupation_machinery_equipment_building_icon"> Occupational health icon </a>: Prashanth Rapolu<br>
+      <a href="https://www.iconfinder.com/icons/2178886/service_repair_tool_automobile_equipment_car_accessories_icon"> Plant and equipment icon </a>: Eucalyp Studio<br>
+      <a href="https://www.iconfinder.com/icons/7557001/respiratory_protection_safety_coronavirus_icon"> PPE icon </a>: Winoz Bay<br>
+      <a href="https://www.iconfinder.com/icons/5980362/avoid_coronavirus_crowd_dangerous_group_people_risk_icon"> high-risk icon </a>: Falara<br>
+      <a href="https://www.iconfinder.com/icons/8665904/toolbox_tools_icon"> Tool box icon </a>: Font Awesome<br>
+      <br>
+      <button id="button-back-start" class="btn btn-primary" onclick="toggleImgAtr()">close</button>
+    </div>
+
+    <section id="options">
+    <div class="container px-4">
+        <div class="row gx-5 gy-3">
+
+          <h1> Forms </h1>
+          <div class="col">
+           <div onclick="FormOverlay('documentation')" class="col border bg-light">
+                <img src="images/documentation-icon.png" class="docu-img">
+                <p>Documentation</p>
+                <br>
+           </div>
+          </div>
+
+          <div class="col">
+            <div onclick="FormOverlay('first-aid')" class="col border bg-light">
+                <img src="images/first_aid_icon.png" class="docu-img">
+                <p>First Aid/Emergency</p>
+            </div>
+          </div>
+
+          <div class="col">
+            <div onclick="FormOverlay('welfare')" class="col border bg-light">
+                <img src="images/welfare-icon.png" class="docu-img">
+                <p>Welfare/Site Establishment</p>
+            </div>
+          </div>
+
+          <div class="col">
+            <div onclick="FormOverlay('COSSH')" class="col border bg-light">
+                <img src="images/occupational-health-icon.png" class="docu-img">
+                <p>Occupational Health/COSSH</p>
+            </div>
+          </div>
+
+          <div class="col">
+            <div onclick="FormOverlay('equipment')" class="col border bg-light">
+                <img src="images/equipment-icon.png" class="docu-img">
+                <p>Plant & Equipment</p>
+            </div>
+          </div>
+
+          <div class="col">
+            <div onclick="FormOverlay('ppe')" class="col border bg-light">
+                <img src="images/ppe-icon.png" class="docu-img">
+                <p>PPE</p>
+                <br>
+            </div>
+          </div>
+
+          <div class="col">
+            <div onclick="FormOverlay('high-risk')" class="col border bg-light">
+                <img src="images/high-risk-icon.png" class="docu-img">
+                <p>High Risk Operations</p>
+            </div>
+          </div>
+
+          <h1> Inventory </h1>
+
+          <div class="col">
+            <div onclick="equipmentInspect()" id="inventoryButton" class="col-md border bg-light">
+                <img src="images/toolbox_icon.png" class="docu-img">
+                <p>Equipment</p>
+            </div>
+          </div>
+
+          
+        </div>
+      </div>
+
+      <div id="rag-container">
+      <p>Final RAG score:</p>
+            <input type="radio" id="red" name="rag-score" value="RED">
+            <label for="red" id="red-text">Red</label><br>
+
+            <input type="radio" id="amber" name="rag-score" value="AMBER">
+            <label for="amber" id="amber-text">Amber</label><br>
+
+            <input type="radio" id="green" name="rag-score" value="GREEN">
+            <label for="green" id="green-text">Green</label>
+
+            <input type="radio" id="unselected" name="rag-score" value="unselected" checked="checked">
+      </div>
+
+            
+
+      <div id="exportOptions">
+        <h1 style="text-align: center;"> Export</h1>
+        <button  type="button"  onclick="to_pdf()" id="export_button"> Export as PDF </button> <br> <br> 
+        <!--<button type="button" onclick="to_excel()" id="export_button"> Export as EXCEL </button>-->
+      </div>
+      
+    </section>
+
+    <div id="overlay">
+        <!--<button id="exit_overlay" onclick="exit_overlay()"> Close </button>-->
+        <button id="save_overlay" onclick="save_overlay()"> Save </button>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
