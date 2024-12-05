@@ -3,8 +3,8 @@ npm run make
 
 Site Manager
 -------
-Camara GUI ✔️ photo needs to be added to photo variable
-No -> comment box ✔️ input needs to be saved to a variable
+Camara GUI ✔️ photo needs to be added to photo variable ✔️
+No -> comment box ✔️ input needs to be saved to a variable ✔️
 Quality Section 
 Spelling ✔️
 question changes ✔️
