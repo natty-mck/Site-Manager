@@ -291,8 +291,8 @@ label {
     transform: translateX(-50%);
     top: 10%;
     z-index: 99;
-    width: 400px;
-    height: 500px;
+    width: 70%;
+    height: 70%;
     background-color: aliceblue;
     border-radius: 5px;
     border: 3px grey solid;
@@ -304,22 +304,28 @@ label {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 70%;
-    margin: 5% auto;
+    width: 40%;
+    height: 40%;
     position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    border: #575252 2px solid;
+    margin-bottom: 1px;
 }
 
 video {
-    width: 350px;
-    height: 200px;
+    width: 100%;
+    height: 100%;
     background: rgba(0, 0, 0, 0.2);
 }
 
 
 .camara-options {
     position: relative;
+    text-align: center;
     left: 50%;
     width: max-content;
+    height: max-content;
     transform: translateX(-50%);
 }
 
@@ -336,25 +342,21 @@ video {
 
 #take-photo-button {
     position: relative;
-    left: 50%;
-    transform: translateX(-50%);
     padding: 10px;
     background-color: lightseagreen;
     color: white;
     border-radius: 4px;
+    margin-bottom: 10px;
 }
 
 #camara-select {
     position: relative;
-    left: 50%;
-    transform: translateX(-50%);
+    margin-bottom: 10px;
 }
 
 #rotate-camara-button {
     position: relative;
     padding: 5px;
     border-radius: 4px;
-    left: 50%;
-    transform: translate(-50%);
-
+    margin-bottom: 10px;
 }

@@ -18,7 +18,7 @@ function camaraPreview() {
 }
 
 
-var camaraRotation = 'user';
+var camaraRotation = 'environment';
 var constraints = {
   video: {
     facingMode: {

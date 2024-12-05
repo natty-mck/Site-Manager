@@ -4,6 +4,9 @@ var photo_category;
 var divIds = ["PDFpreview-container-1", "PDFpreview-container-2", "PDFpreview-container-3", "PDFpreview-container-4", "PDFpreview-container-5", "PDFpreview-container-6", "PDFpreview-container-7"];
 var questionNum;
 
+const photos = [];
+const comments = [];
+
 if (window.location.pathname == "/auditMeta.html") {
     checkMeta();
 }
@@ -77,7 +80,7 @@ function displayQuestions(type) {
                 postElement.innerHTML = ` 
                 <p>${question.question}</p>
 
-                <div id = ${count + "test"}>
+                <div id = ${count + "upload-container"}>
                     <input onclick="uploadShow(${count})" type="radio" id="${count + "yes"}" name="${question_name}" value="Yes">
                     <label for="${count + "yes"}" id="Yes-text">Yes</label><br>
                 </div>
@@ -103,7 +106,7 @@ function displayQuestions(type) {
 }
 
 function removeUpload(number) {
-    let element = document.getElementById(number + "test");
+    let element = document.getElementById(number + "upload-container");
     let child = document.getElementById(number + "upload");
     if (element.stringify == "undefined") {
         return;
@@ -111,6 +114,7 @@ function removeUpload(number) {
         element.removeChild(child);
         child = document.getElementById(number + "takePhoto");
         element.removeChild(child);
+        element.removeChild(document.getElementById("orText"));
     }
 
 }
@@ -137,26 +141,27 @@ function addCommentBox(number) {
         let commentInputBox  = document.getElementById(number + "comment");
         commentInputBox.innerHTML +=    ` 
                                         <div id= "${number + "comment-container"}">
-                                        <textarea style="margin-bottom: 20px;" placeholder="Enter Description"></textarea>
+                                            <textarea id = "${number + "comment-box"}" style="margin-bottom: 20px;" placeholder="Enter Description"></textarea>
                                         </div>
                                         `
     }
     removeUpload(number);
-    
+
 }
 
 
-const photos = [];
+
 
 function uploadShow(number) {   
     if (document.getElementById(number + "upload") == null) {
-            var inputBox  = document.getElementById(number + "test");
+            var inputBox  = document.getElementById(number + "upload-container");
             inputBox.innerHTML +=  `
-                                    <button id="${number + "takePhoto"}" title="Take photo" onclick="camaraPreview(${number})"> Use Camara </button>
+                                    <button id="${number + "takePhoto"}" title="Take photo" onclick="camaraPreview(${number})"> Use Camara </button> <span id="orText">OR</span>
                                     <input id= "${number + "upload"}" type='file' class="upload" id='file' name="${number + "upload"}" multiple/></input>
                                     <img id="preview" name="${number + "photo"}" src="#" alt="Image Preview" style="display: none;"/>
                                     `
-        
+            
+
             questionNum = number;
     
             document.getElementById(number + "upload").addEventListener('change', function () {
@@ -273,71 +278,136 @@ function save_overlay() {
         documentaional_answers.length = 0;
 
         for (let i = 0; i < max_question; i++) {
+
+            try {
+                comment = document.getElementById((i+1) + "comment-box").value;
+                comments.push(comment, i+1 ,formType);
+            } catch (error) {
+                comments.push("blank");
+            }
+
             try {
                 var answer = document.querySelector("input[name='" + "id" + i + "']:checked").value;
                 documentaional_answers.push(answer);
                 
-            } catch (error) {break} };
-
-            try {
-                let photoElement = document.getElementById(i + "photo"); 
-                if (photoElement && photoElement.src) {
-                    let photoBase = photoElement.src;
-                    documentaional_answers.push(photoBase);
-                    console.log("Photo base added:", photoBase);
-                } else {
-                    console.log("Photo element not found or src is empty for id:", i + "photo");}
-            } catch (error) {
-                console.error("Error processing photo:", error);
-            }}
+            } catch (error) {break}
+        }
+        comments.pop();
+    }
 
     else if (formType == "first-aid") {
         emergency_answers.length = 0;
         for  (let i = 0; i < max_question; i++) {
+
+            try {
+                comment = document.getElementById((i+1) + "comment-box").value;
+                comments.push(comment, i+1 ,formType);
+            } catch (error) {
+                comments.push("blank");
+            }
+
             try {
                 var answer = document.querySelector("input[name='" + "id" + i + "']:checked").value;
                 emergency_answers.push(answer);
-            } catch (error) {break} }}
+            } catch (error) {break} 
+        }
+        comments.pop();
+    }
 
     else if (formType == "welfare") {
         welfare_answers.length = 0;
         for  (let i = 0; i < max_question; i++) {
+
+            try {
+                comment = document.getElementById((i+1) + "comment-box").value;
+                comments.push(comment, i+1 ,formType);
+            } catch (error) {
+                comments.push("blank");
+            }
+
             try {
                 var answer = document.querySelector("input[name='" + "id" + i + "']:checked").value;
                 welfare_answers.push(answer);
-            } catch (error) {break} }}
+            } catch (error) {break} 
+        }
+        comments.pop();
+    }
 
     else if (formType == "COSSH") {
         cossh_answers.length = 0;
         for  (let i = 0; i < max_question; i++) {
+
+            try {
+                comment = document.getElementById((i+1) + "comment-box").value;
+                comments.push(comment, i+1 ,formType);
+            } catch (error) {
+                comments.push("blank");
+            }
+
             try {
                 var answer = document.querySelector("input[name='" + "id" + i + "']:checked").value;
                 cossh_answers.push(answer);
-            } catch (error) {break} }}
+            } catch (error) {break} 
+        }
+        comments.pop();
+    }
 
     else if (formType == "equipment") {
         equipment_answers.length = 0;
         for  (let i = 0; i < max_question; i++) {
+
+            try {
+                comment = document.getElementById((i+1) + "comment-box").value;
+                comments.push(comment, i+1 ,formType);
+            } catch (error) {
+                comments.push("blank");
+            }
+
             try {
                 var answer = document.querySelector("input[name='" + "id" + i + "']:checked").value;
                 equipment_answers.push(answer);
-            } catch (error) {break} }}
+            } catch (error) {break} 
+        }
+        comments.pop();
+    }
 
     else if (formType == "ppe") {
         ppe_answers.length = 0;
         for  (let i = 0; i < max_question; i++) {
+
+            try {
+                comment = document.getElementById((i+1) + "comment-box").value;
+                comments.push(comment, i+1 ,formType);
+            } catch (error) {
+                comments.push("blank");
+            }
+
             try {
                 var answer = document.querySelector("input[name='" + "id" + i + "']:checked").value;
                 ppe_answers.push(answer);
-            } catch (error) {break} }}
+            } catch (error) {break} 
+        }
+        comments.pop();
+    }
 
     else if (formType == "high-risk") {
         hro_answers.length = 0;
         for  (let i = 0; i < max_question; i++) {
+
+            try {
+                comment = document.getElementById((i+1) + "comment-box").value;
+                comments.push(comment, i+1 ,formType);
+            } catch (error) {
+                comments.push("blank");
+            }
+            
             try {
                 var answer = document.querySelector("input[name='" + "id" + i + "']:checked").value;
                 hro_answers.push(answer);
-            } catch (error) {break} }}
+            } catch (error) {break} 
+        }
+        comments.pop();
+    }
                 
 
     var x = document.getElementById("overlay");
@@ -347,6 +417,8 @@ function save_overlay() {
     } else {
         x.style.display = "none";
     }
+
+    console.log(comments)
 }
 
 function to_excel() {
@@ -634,4 +706,6 @@ function downloadComplete() {
 document.getElementById("take-photo-button").addEventListener("click", function() {
     let imageTaken = localStorage.getItem("takenPhotos");
     photos.push(imageTaken, photo_category, questionNum);
+
+    document.getElementById(questionNum + "takePhoto").innerHTML = "Photo taken!"
 });

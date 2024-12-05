@@ -149,6 +149,7 @@
 
     <!-- take photo from camara overlay -->
     <section id="camaraPreview">
+      <button onclick="closePhoto()" id="close-photo-button" title="Take Photo"> <img height="22px"  src="../images/exit_button.png"> </button>
       <div class="display-cover">
           <video id="vid" autoplay></video>
           <canvas id="vidCanvas" style="display: none;" class="d-none"></canvas>
@@ -157,15 +158,16 @@
       <img id="vidImg" style="display: none;" class="screenshot-image d-none" alt="">
 
       <div class="camara-options">
-          <select name="" id="camara-select" class="custom-select">
+          <label for ="camara-select"> Select Camara </label> <br>
+          <select name="camara-select" id="camara-select" class="custom-select">
               <option value="">Select camera</option>
           </select>
           <br>
-          <button onclick="RotateCamara()" id="rotate-camara-button" title="Rotate Camara">Rotate</button>
+          <button onclick="RotateCamara()" id="rotate-camara-button" title="Rotate Camara">Rotate <img height="22px" src="../images/camara_rotate.png"> </button>
           <p id="camara-warning"> Warning: No Camara Found </p>
           <br>
           <button onclick="capturePhoto()" id="take-photo-button" title="Take Photo">Take Photo</button> <br>
-          <button onclick="closePhoto()" id="take-photo-button" title="Take Photo">Close</button>
+          
       </div> 
     </section>
 
