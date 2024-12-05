@@ -114,24 +114,29 @@
         </div>
       </div>
 
-      <div id="rag-container">
-      <p>Final RAG score:</p>
-            <input type="radio" id="red" name="rag-score" value="RED">
-            <label for="red" id="red-text">Red</label><br>
+      <div style="position: relative;width: 70%;left: 50%;transform: translateX(-50%);background-color: darkgray;margin-bottom: 10px;" class = "divider"></div>
 
-            <input type="radio" id="amber" name="rag-score" value="AMBER">
-            <label for="amber" id="amber-text">Amber</label><br>
-
-            <input type="radio" id="green" name="rag-score" value="GREEN">
-            <label for="green" id="green-text">Green</label>
-
-            <input type="radio" id="unselected" name="rag-score" value="unselected" checked="checked">
-      </div>
+      
 
             
 
       <div id="exportOptions">
         <h1 style="text-align: center;"> Export</h1>
+
+        <div id="rag-container">
+          <p>Final RAG score:</p>
+                <input type="radio" id="red" name="rag-score" value="RED">
+                <label for="red" id="red-text">Red</label><br>
+    
+                <input type="radio" id="amber" name="rag-score" value="AMBER">
+                <label for="amber" id="amber-text">Amber</label><br>
+    
+                <input type="radio" id="green" name="rag-score" value="GREEN">
+                <label for="green" id="green-text">Green</label>
+    
+                <input type="radio" id="unselected" name="rag-score" value="unselected" checked="checked">
+          </div>
+
         <button  type="button"  onclick="to_pdf()" id="export_button"> Export as PDF </button> <br> <br> 
       </div>
       
@@ -146,17 +151,19 @@
     <section id="camaraPreview">
       <div class="display-cover">
           <video id="vid" autoplay></video>
-          <canvas style="display: none;" class="d-none"></canvas>
+          <canvas id="vidCanvas" style="display: none;" class="d-none"></canvas>
       </div>
 
-      <img style="display: none;" class="screenshot-image d-none" alt="">
+      <img id="vidImg" style="display: none;" class="screenshot-image d-none" alt="">
 
       <div class="camara-options">
           <select name="" id="camara-select" class="custom-select">
               <option value="">Select camera</option>
           </select>
-
+          <br>
+          <button onclick="RotateCamara()" id="rotate-camara-button" title="Rotate Camara">Rotate</button>
           <p id="camara-warning"> Warning: No Camara Found </p>
+          <br>
           <button onclick="capturePhoto()" id="take-photo-button" title="Take Photo">Take Photo</button> <br>
           <button onclick="closePhoto()" id="take-photo-button" title="Take Photo">Close</button>
       </div> 

@@ -2,7 +2,7 @@ var question_name;
 var type = "";
 var photo_category;
 var divIds = ["PDFpreview-container-1", "PDFpreview-container-2", "PDFpreview-container-3", "PDFpreview-container-4", "PDFpreview-container-5", "PDFpreview-container-6", "PDFpreview-container-7"];
-
+var questionNum;
 
 if (window.location.pathname == "/auditMeta.html") {
     checkMeta();
@@ -82,12 +82,11 @@ function displayQuestions(type) {
                     <label for="${count + "yes"}" id="Yes-text">Yes</label><br>
                 </div>
 
-                
                 <input onclick="addCommentBox(${count});" type="radio" id="${count + "no"}" name="${question_name}" value="No">
                 <label for="${count + "no"}" id="No-text">No</label><br>
                 <div id = ${count + "comment"}></div>
 
-                <input onclick="removeUpload(${count})" type="radio" id="${count + "not_insp"}" name="${question_name}" value="Not Inspected">
+                <input onclick="removeAll(${count})" type="radio" id="${count + "not_insp"}" name="${question_name}" value="Not Inspected">
                 <label for="${count + "not_insp"}" id="Not-Inspected-text">Not Inspected</label>
                 <input type="radio" id="unselected" name="${question_name}" value="unselected" checked="checked">`;
                 container.appendChild(postElement);
@@ -104,17 +103,33 @@ function displayQuestions(type) {
 }
 
 function removeUpload(number) {
-    var element = document.getElementById(number + "test");
-    var child = document.getElementById(number + "upload");
-    element.removeChild(child);
-    var child = document.getElementById(number + "takePhoto");
-    element.removeChild(child);
+    let element = document.getElementById(number + "test");
+    let child = document.getElementById(number + "upload");
+    if (element.stringify == "undefined") {
+        return;
+    } else {    
+        element.removeChild(child);
+        child = document.getElementById(number + "takePhoto");
+        element.removeChild(child);
+    }
+
 }
 
 function removeComment(number) {
-    var element = document.getElementById(number + "comment");
-    var child = document.getElementById(number + "comment-container");
-    element.removeChild(child);
+    let element = document.getElementById(number + "comment");
+    let child = document.getElementById(number + "comment-container");
+    if (element.stringify == "undefined") {
+        return;
+    }
+    else {        
+        element.removeChild(child);
+    }
+}
+
+function removeAll(number) {
+    removeComment(number);
+    removeUpload(number);
+    
 }
 
 function addCommentBox(number) {
@@ -137,10 +152,12 @@ function uploadShow(number) {
     if (document.getElementById(number + "upload") == null) {
             var inputBox  = document.getElementById(number + "test");
             inputBox.innerHTML +=  `
-                                    <button id="${number + "takePhoto"}" title="Take photo" onclick="camaraPreview()"> Use Camara </button>
+                                    <button id="${number + "takePhoto"}" title="Take photo" onclick="camaraPreview(${number})"> Use Camara </button>
                                     <input id= "${number + "upload"}" type='file' class="upload" id='file' name="${number + "upload"}" multiple/></input>
                                     <img id="preview" name="${number + "photo"}" src="#" alt="Image Preview" style="display: none;"/>
                                     `
+        
+            questionNum = number;
     
             document.getElementById(number + "upload").addEventListener('change', function () {
                 let file = this.files[0];
@@ -432,8 +449,6 @@ function loadPDF() {
 
 function loadQuestions(category, page, jsonindex, amountQuest, title, start) {
 
-    
-    
     const pdf_documentaional_answers = JSON.parse(localStorage.getItem("local_documentaional_answers"));
     const pdf_emergency_answers = JSON.parse(localStorage.getItem("local_emergency_answers"));
     const pdf_welfare_answers = JSON.parse(localStorage.getItem("local_welfare_answers"));
@@ -616,3 +631,7 @@ function downloadComplete() {
     window.location.href = "auditMeta.html";
 }
 
+document.getElementById("take-photo-button").addEventListener("click", function() {
+    let imageTaken = localStorage.getItem("takenPhotos");
+    photos.push(imageTaken, photo_category, questionNum);
+});

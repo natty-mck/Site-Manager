@@ -349,3 +349,12 @@ video {
     left: 50%;
     transform: translateX(-50%);
 }
+
+#rotate-camara-button {
+    position: relative;
+    padding: 5px;
+    border-radius: 4px;
+    left: 50%;
+    transform: translate(-50%);
+
+}
