@@ -149,10 +149,16 @@ function addCommentBox(number) {
 
 }
 
+function checkEmptyphotos(number) {
+    alert(document.getElementById(number + "takePhoto").innerHTML);
+}
 
 
 
-function uploadShow(number) {   
+function uploadShow(number) {  
+    try { 
+    checkEmptyphotos(number);
+    } catch {};
     if (document.getElementById(number + "upload") == null) {
             var inputBox  = document.getElementById(number + "upload-container");
             inputBox.innerHTML +=  `
@@ -185,9 +191,9 @@ function uploadShow(number) {
                 return `"${str}"`;
             }
         }
-    removeComment(number)
+    removeComment(number);
+    
 }
-
 function toggleImgAtr() {
     if  (document.getElementById("overlay").style.display == "block") {
         document.getElementById("overlay").style.display = "none";
@@ -400,7 +406,7 @@ function save_overlay() {
             } catch (error) {
                 comments.push("blank");
             }
-            
+
             try {
                 var answer = document.querySelector("input[name='" + "id" + i + "']:checked").value;
                 hro_answers.push(answer);
