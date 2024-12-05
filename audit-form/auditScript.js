@@ -282,9 +282,9 @@ function save_overlay() {
     
     if (formType == "documentation") {
         documentaional_answers.length = 0;
-
+        
         for (let i = 0; i < max_question; i++) {
-
+           
             try {
                 comment = document.getElementById((i+1) + "comment-box").value;
                 comments.push(comment, i+1 ,formType);
@@ -297,8 +297,8 @@ function save_overlay() {
                 documentaional_answers.push(answer);
                 
             } catch (error) {break}
+           
         }
-        comments.pop();
     }
 
     else if (formType == "first-aid") {
@@ -308,9 +308,7 @@ function save_overlay() {
             try {
                 comment = document.getElementById((i+1) + "comment-box").value;
                 comments.push(comment, i+1 ,formType);
-            } catch (error) {
-                comments.push("blank");
-            }
+            } catch (error) {}
 
             try {
                 var answer = document.querySelector("input[name='" + "id" + i + "']:checked").value;
@@ -402,6 +400,7 @@ function save_overlay() {
 
             try {
                 comment = document.getElementById((i+1) + "comment-box").value;
+                console.log(comment)
                 comments.push(comment, i+1 ,formType);
             } catch (error) {
                 comments.push("blank");
@@ -413,8 +412,8 @@ function save_overlay() {
             } catch (error) {break} 
         }
         comments.pop();
-    }
-                
+        
+    }        
 
     var x = document.getElementById("overlay");
     x.style.display = "show";
@@ -424,7 +423,7 @@ function save_overlay() {
         x.style.display = "none";
     }
 
-    console.log(comments)
+    console.log(comments);
 }
 
 function to_excel() {
@@ -480,6 +479,7 @@ function to_pdf() {
 
 
     localStorage.setItem("local_photos", JSON.stringify(photos));
+    localStorage.setItem("local_comments", JSON.stringify(comments));
     document.body.style.zoom = "80%";
     loadPDF();
     
@@ -536,6 +536,7 @@ function loadQuestions(category, page, jsonindex, amountQuest, title, start) {
     const pdf_hro_answers = JSON.parse(localStorage.getItem("local_hro_answers"));
 
     const pdf_photos = JSON.parse(localStorage.getItem("local_photos"));
+    const pdf_comments = JSON.parse(localStorage.getItem("local_comments"));
 
     if (pdf_photos.length > 0) {photosPresent = true};
            
@@ -544,14 +545,12 @@ function loadQuestions(category, page, jsonindex, amountQuest, title, start) {
     fetch('questions.json')
             .then(response => response.json())
             .then(data => {
-
                 for (let i = start, j = 0; i < amountQuest, j < amountQuest*3; i++, j = j + 3) {
 
                     let base = "PDFpreview-container-";
                     let pageNumber = page[page.length - 1];
                     
                     let PDFcontainer = document.getElementById(base + pageNumber);
-
 
                     if (jsonindex === 0) {
                         var answers  = pdf_documentaional_answers;
@@ -571,6 +570,8 @@ function loadQuestions(category, page, jsonindex, amountQuest, title, start) {
 
   
                 let question = data[jsonindex][category][i]["question"];
+   
+               
  
                 if (i == 0) {
                     PDFcontainer.innerHTML += `<h5 class="pdfInnerText"> ${title} </h5>`;
@@ -598,8 +599,20 @@ function loadQuestions(category, page, jsonindex, amountQuest, title, start) {
                     };
                     
                 };
+     
+                console.log(pdf_comments)
+                if (category == pdf_comments[j+2] && i+1 == pdf_comments[j+1]) {
+                    var comment = pdf_comments[j];
+                } else {
+                    var comment = "no comment";
+                }
                 
-                PDFcontainer.innerHTML += `<p class="pdfInnerText" class="audit-results"> ${question} <br> ${answers[i]} </p>`;
+                PDFcontainer.innerHTML +=   `
+                                            <p class="pdfInnerText" class="audit-results"> ${question} <br> ${answers[i]}
+                                            <br>
+                                            ${comment}
+                                            </p>
+                                            `;
                 PDFcontainer.innerHTML += `<hr>`;
 
                 };
