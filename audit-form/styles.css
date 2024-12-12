@@ -292,7 +292,7 @@ label {
     top: 10%;
     z-index: 99;
     width: 70%;
-    height: 70%;
+    height: max-content;
     background-color: aliceblue;
     border-radius: 5px;
     border: 3px grey solid;
@@ -304,8 +304,8 @@ label {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 40%;
-    height: 40%;
+    width: 80%;
+    height: 80%;
     position: relative;
     left: 50%;
     transform: translateX(-50%);
