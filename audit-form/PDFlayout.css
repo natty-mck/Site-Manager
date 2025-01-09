@@ -117,6 +117,20 @@
 
 }
 
+#goBack {
+    position: absolute;
+    left: 10%;
+    top: 50%;
+    border-radius: 3px;
+}
+
+#goForward {
+    position: absolute;
+    right: 10%;
+    top: 50%;
+    border-radius: 3px;
+}
+
 
 #downloadSplash {
     position: fixed;
