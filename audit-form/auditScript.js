@@ -531,7 +531,6 @@ function loadQuestions(category, page, jsonindex, amountQuest, title, start) {
   
                 let question = data[jsonindex][category][i]["question"];
    
-               
  
                 if (i == 0) {
                     PDFcontainer.innerHTML += `<h5 class="pdfInnerText"> ${title} </h5>`;
@@ -630,32 +629,25 @@ function PDFcalculate() {
     const pdf_equipment_answers = JSON.parse(localStorage.getItem("local_equipment_answers"));
     const pdf_ppe_answers = JSON.parse(localStorage.getItem("local_ppe_answers"));
     const pdf_hro_answers = JSON.parse(localStorage.getItem("local_hro_answers"));
-
-    const pdf_photos = JSON.parse(localStorage.getItem("local_photos"));
-    const pdf_comments = JSON.parse(localStorage.getItem("local_comments"));
-
-    
-    
-    localStorage.clear();
-    
-    console.log(documentaional_answers)
     
     fetch('questions.json')
             .then(response => response.json())
-            .then(JSONdata => {
-                data = JSONdata;
+            .then(data => {
 
                 const { jsPDF } = window.jspdf;
                 const doc = new jsPDF();
-
-                //add documentation answers
+                
                 let line = 10;
+                //add documentation answers
                 doc.text("Documentation", 10,10)
                 line = nextLine(line, doc);
                 for (let i = 0; i < data[0]["documentation"].length; i++) {
                     doc.text(data[0]["documentation"][i]["question"], 10, line);
                     line = nextLine(line, doc);
-                    doc.text(data[0]["documentation"][i]["question"], 10, line);
+                    try {doc.text(pdf_documentaional_answers[i], 10, line);} catch (error) {doc.text("No answer", 10, line);}
+                    line = nextLine(line, doc);
+                    line = checkForComment(doc,line, i, "documentation");
+                    line = checkForPhoto(doc,line, i, "documentation");
                 }
                 line = nextLine(line, doc);
                 //add first-aid answers
@@ -664,8 +656,9 @@ function PDFcalculate() {
                 for (let i = 0; i < data[1]["first-aid"].length; i++) {
                     doc.text(data[1]["first-aid"][i]["question"], 10, line);
                     line = nextLine(line, doc);
-                    doc.text(pdf_documentaional_answers[i]);
+                    try {doc.text(pdf_emergency_answers[i], 10, line);} catch (error) {doc.text("No answer", 10, line);}
                     line = nextLine(line, doc);
+                    line = checkForComment(doc,line, i, "first-aid");
                 }
                 line = nextLine(line, doc);
                 //add welfare answers
@@ -674,6 +667,9 @@ function PDFcalculate() {
                 for (let i = 0; i < data[2]["welfare"].length; i++) {
                     doc.text(data[2]["welfare"][i]["question"], 10, line);
                     line = nextLine(line, doc);
+                    try {doc.text(pdf_welfare_answers[i], 10, line);} catch (error) {doc.text("No answer", 10, line);}
+                    line = nextLine(line, doc);
+                    line = checkForComment(doc,line, i, "welfare");
                 }
                 line = nextLine(line, doc);
                 //add COSSH answers
@@ -682,6 +678,9 @@ function PDFcalculate() {
                 for (let i = 0; i < data[3]["COSSH"].length; i++) {
                     doc.text(data[3]["COSSH"][i]["question"], 10, line);
                     line = nextLine(line, doc);
+                    try {doc.text(pdf_cossh_answers[i], 10, line);} catch (error) {doc.text("No answer", 10, line);}
+                    line = nextLine(line, doc);
+                    line = checkForComment(doc,line, i, "COSSH");
                 }
                 line = nextLine(line, doc);
                 //add equipment answers
@@ -690,6 +689,9 @@ function PDFcalculate() {
                 for (let i = 0; i < data[4]["equipment"].length; i++) {
                     doc.text(data[4]["equipment"][i]["question"], 10, line);
                     line = nextLine(line, doc);
+                    try {doc.text(pdf_equipment_answers[i], 10, line);} catch (error) {doc.text("No answer", 10, line);}
+                    line = nextLine(line, doc);
+                    line = checkForComment(doc,line, i, "equipment");
                 }
                 line = nextLine(line, doc);
                 //add ppe answers
@@ -698,6 +700,9 @@ function PDFcalculate() {
                 for (let i = 0; i < data[5]["ppe"].length; i++) {
                     doc.text(data[5]["ppe"][i]["question"], 10, line);
                     line = nextLine(line, doc);
+                    try {doc.text(pdf_ppe_answers[i], 10, line);} catch (error) {doc.text("No answer", 10, line);}
+                    line = nextLine(line, doc);
+                    line = checkForComment(doc,line, i, "ppe");
                 }
                 line = line + 10;
                 //add high-risk answers
@@ -706,11 +711,45 @@ function PDFcalculate() {
                 for (let i = 0; i < data[6]["high-risk"].length; i++) {
                     doc.text(data[6]["high-risk"][i]["question"], 10, line);
                     line = nextLine(line, doc);
+                    try {doc.text(pdf_hro_answers[i], 10, line);} catch (error) {doc.text("No answer", 10, line);}
+                    line = nextLine(line, doc);
+                    line = checkForComment(doc,line, i, "high-risk");
                 }
 
                 doc.save("a4.pdf");
             }
     )    
+}
+
+function checkForComment(doc,line, question, category){
+    const pdf_comments = JSON.parse(localStorage.getItem("local_comments"));
+    for (let i = 2; i < pdf_comments.length; i+=3) {
+
+        if(pdf_comments[i] == category && pdf_comments[i-1]-1 == question) {
+            doc.text(pdf_comments[i-2], 10, line);
+            line = nextLine(line, doc);
+        }
+    }
+    return line;
+}
+
+function checkForPhoto(doc,line, question, category) {
+    const pdf_photos = JSON.parse(localStorage.getItem("local_photos"));
+    console.log(
+        pdf_photos
+    )
+    for (let i = 2; i < pdf_photos.length; i+=3) {
+
+        if(pdf_photos[i]-1 == question && pdf_photos[i-1] == category) {
+            pdf_photos_encoded = pdf_photos[i-2];
+            console.log(pdf_photos_encoded)
+            doc.addImage(pdf_photos_encoded, 'JPEG', 15, 40, 359, 359);
+            line = nextLine(line, doc);
+
+
+        }
+    }
+    return line;
 }
 
 function nextLine(line, doc){
