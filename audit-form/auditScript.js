@@ -279,7 +279,6 @@ const hro_answers = [];
 const max_question = 26;
 
 function save_overlay() {
-    
     if (formType == "documentation") {
         documentaional_answers.length = 0;
         
@@ -502,7 +501,6 @@ function loadQuestions(category, page, jsonindex, amountQuest, title, start) {
 
     if (pdf_photos.length > 0) {photosPresent = true};
            
-    document.body.style.zoom = "90%";
 
     fetch('questions.json')
             .then(response => response.json())
@@ -625,65 +623,105 @@ function loadphotos() {
 }
 
 function PDFcalculate() {
-    const pdf_photos = JSON.parse(localStorage.getItem("local_photos"));
-    localStorage.clear();
+    const pdf_documentaional_answers = JSON.parse(localStorage.getItem("local_documentaional_answers"));
+    const pdf_emergency_answers = JSON.parse(localStorage.getItem("local_emergency_answers"));
+    const pdf_welfare_answers = JSON.parse(localStorage.getItem("local_welfare_answers"));
+    const pdf_cossh_answers = JSON.parse(localStorage.getItem("local_cossh_answers"));
+    const pdf_equipment_answers = JSON.parse(localStorage.getItem("local_equipment_answers"));
+    const pdf_ppe_answers = JSON.parse(localStorage.getItem("local_ppe_answers"));
+    const pdf_hro_answers = JSON.parse(localStorage.getItem("local_hro_answers"));
 
+    const pdf_photos = JSON.parse(localStorage.getItem("local_photos"));
+    const pdf_comments = JSON.parse(localStorage.getItem("local_comments"));
+
+    
+    
+    localStorage.clear();
+    
+    console.log(documentaional_answers)
     
     fetch('questions.json')
             .then(response => response.json())
-            .then(data => {
+            .then(JSONdata => {
+                data = JSONdata;
 
                 const { jsPDF } = window.jspdf;
                 const doc = new jsPDF();
-                
-                
-                for (let i = start, j = 0; i < amountQuest, j < amountQuest*3; i++, j = j + 3) {
-                    alert()
-                    if (jsonindex === 0) {
-                        var answers  = pdf_documentaional_answers;
-                    } else if (jsonindex === 1) {
-                        var answers  = pdf_emergency_answers;
-                    } else if (jsonindex === 2) {
-                        var answers  = pdf_welfare_answers;
-                    } else if (jsonindex === 3) {
-                        var answers  = pdf_cossh_answers;
-                    } else if (jsonindex === 4) {
-                        var answers  = pdf_equipment_answers;
-                    } else if (jsonindex === 5) {
-                        var answers  = pdf_ppe_answers;
-                    } else if (jsonindex === 6) {
-                        var answers  = pdf_hro_answers;
-                    };
 
-                    let question = data[jsonindex][category][i]["question"];
-    
-                    if (i == 0) {
-                        doc.text(`${title}`, 10, 10);
-                        if (category == "high-risk" && start ==  0){
-                            doc.text("Breaking Ground");
-                        };
-                        
-                    } else if (i === 6 && category == "high-risk") {
-                        doc.text(`${title}`, 10, 10);
-                        if (category == "high-risk" && start ==  6){
-                            doc.text("Working at Height");
-                        };
-                        
-                    } else if (i === 11 && category == "high-risk" &&  start == 11) {
-                        doc.text(`${title}`, 10, 10);
-                        if (category == "high-risk" && start ==  11){
-                            doc.text("Confined Spaces");
-                        };
-                        
-                    } else if (i === 18 && category == "high-risk" && start ==  18) {
-                        doc.text(`${title}`, 10, 10);
-                        if (category == "high-risk" && start ==  18){
-                            doc.text("Lifting");
-                        };
-                    };
+                //add documentation answers
+                let line = 10;
+                doc.text("Documentation", 10,10)
+                line = nextLine(line, doc);
+                for (let i = 0; i < data[0]["documentation"].length; i++) {
+                    doc.text(data[0]["documentation"][i]["question"], 10, line);
+                    line = nextLine(line, doc);
+                    doc.text(data[0]["documentation"][i]["question"], 10, line);
                 }
+                line = nextLine(line, doc);
+                //add first-aid answers
+                doc.text("first-aid", 10,line)
+                line = nextLine(line, doc);
+                for (let i = 0; i < data[1]["first-aid"].length; i++) {
+                    doc.text(data[1]["first-aid"][i]["question"], 10, line);
+                    line = nextLine(line, doc);
+                    doc.text(pdf_documentaional_answers[i]);
+                    line = nextLine(line, doc);
+                }
+                line = nextLine(line, doc);
+                //add welfare answers
+                doc.text("welfare", 10,line)
+                line = nextLine(line, doc);
+                for (let i = 0; i < data[2]["welfare"].length; i++) {
+                    doc.text(data[2]["welfare"][i]["question"], 10, line);
+                    line = nextLine(line, doc);
+                }
+                line = nextLine(line, doc);
+                //add COSSH answers
+                doc.text("COSSH", 10,line)
+                line = nextLine(line, doc);
+                for (let i = 0; i < data[3]["COSSH"].length; i++) {
+                    doc.text(data[3]["COSSH"][i]["question"], 10, line);
+                    line = nextLine(line, doc);
+                }
+                line = nextLine(line, doc);
+                //add equipment answers
+                doc.text("equipment", 10,line)
+                line = nextLine(line, doc);
+                for (let i = 0; i < data[4]["equipment"].length; i++) {
+                    doc.text(data[4]["equipment"][i]["question"], 10, line);
+                    line = nextLine(line, doc);
+                }
+                line = nextLine(line, doc);
+                //add ppe answers
+                doc.text("ppe", 10,line)
+                line = nextLine(line, doc);
+                for (let i = 0; i < data[5]["ppe"].length; i++) {
+                    doc.text(data[5]["ppe"][i]["question"], 10, line);
+                    line = nextLine(line, doc);
+                }
+                line = line + 10;
+                //add high-risk answers
+                doc.text("high-risk", 10,line)
+                line = nextLine(line, doc);
+                for (let i = 0; i < data[6]["high-risk"].length; i++) {
+                    doc.text(data[6]["high-risk"][i]["question"], 10, line);
+                    line = nextLine(line, doc);
+                }
+
                 doc.save("a4.pdf");
-        });
+            }
+    )    
+}
+
+function nextLine(line, doc){
+    line = line + 5;
+    
+    if (line > 250) {
+        doc.addPage();
+        line = 10;
+    };
+
+    return line;
 }
 
 async function downloadSplash() {
