@@ -283,15 +283,13 @@ const max_question = 26;
 function save_overlay() {
     if (formType == "documentation") {
         documentaional_answers.length = 0;
-        
         for (let i = 0; i < max_question; i++) {
            
             try {
                 comment = document.getElementById((i+1) + "comment-box").value;
-                comments.push(comment, i+1 ,formType);
-            } catch (error) {
-                comments.push("blank");
-            }
+                comments.push(comment, formType, i+1);
+            } catch (error) {}
+            
 
             try {
                 var answer = document.querySelector("input[name='" + "id" + i + "']:checked").value;
@@ -306,9 +304,10 @@ function save_overlay() {
         emergency_answers.length = 0;
         for  (let i = 0; i < max_question; i++) {
 
+
             try {
                 comment = document.getElementById((i+1) + "comment-box").value;
-                comments.push(comment, i+1 ,formType);
+                comments.push(comment, formType ,i+1);
             } catch (error) {}
 
             try {
@@ -316,7 +315,6 @@ function save_overlay() {
                 emergency_answers.push(answer);
             } catch (error) {break} 
         }
-        comments.pop();
     }
 
     else if (formType == "welfare") {
@@ -325,17 +323,14 @@ function save_overlay() {
 
             try {
                 comment = document.getElementById((i+1) + "comment-box").value;
-                comments.push(comment, i+1 ,formType);
-            } catch (error) {
-                comments.push("blank");
-            }
+                comments.push(comment, formType ,i+1);
+            } catch (error) {}
 
             try {
                 var answer = document.querySelector("input[name='" + "id" + i + "']:checked").value;
                 welfare_answers.push(answer);
             } catch (error) {break} 
         }
-        comments.pop();
     }
 
     else if (formType == "COSSH") {
@@ -344,17 +339,14 @@ function save_overlay() {
 
             try {
                 comment = document.getElementById((i+1) + "comment-box").value;
-                comments.push(comment, i+1 ,formType);
-            } catch (error) {
-                comments.push("blank");
-            }
+                comments.push(comment, formType ,i+1);
+            } catch (error) {}
 
             try {
                 var answer = document.querySelector("input[name='" + "id" + i + "']:checked").value;
                 cossh_answers.push(answer);
             } catch (error) {break} 
         }
-        comments.pop();
     }
 
     else if (formType == "equipment") {
@@ -363,17 +355,14 @@ function save_overlay() {
 
             try {
                 comment = document.getElementById((i+1) + "comment-box").value;
-                comments.push(comment, i+1 ,formType);
-            } catch (error) {
-                comments.push("blank");
-            }
+                comments.push(comment, formType ,i+1);
+            } catch (error) {}
 
             try {
                 var answer = document.querySelector("input[name='" + "id" + i + "']:checked").value;
                 equipment_answers.push(answer);
             } catch (error) {break} 
         }
-        comments.pop();
     }
 
     else if (formType == "ppe") {
@@ -382,17 +371,14 @@ function save_overlay() {
 
             try {
                 comment = document.getElementById((i+1) + "comment-box").value;
-                comments.push(comment, i+1 ,formType);
-            } catch (error) {
-                comments.push("blank");
-            }
+                comments.push(comment, formType ,i+1);
+            } catch (error) {}
 
             try {
                 var answer = document.querySelector("input[name='" + "id" + i + "']:checked").value;
                 ppe_answers.push(answer);
             } catch (error) {break} 
         }
-        comments.pop();
     }
 
     else if (formType == "high-risk") {
@@ -401,19 +387,17 @@ function save_overlay() {
 
             try {
                 comment = document.getElementById((i+1) + "comment-box").value;
-                comments.push(comment, i+1 ,formType);
-            } catch (error) {
-                comments.push("blank");
-            }
+                comments.push(comment, formType ,i+1);
+            } catch (error) {}
 
             try {
                 var answer = document.querySelector("input[name='" + "id" + i + "']:checked").value;
                 hro_answers.push(answer);
             } catch (error) {break} 
         }
-        comments.pop();
-        
-    }        
+    }      
+    
+    console.log(comments)
 
     var x = document.getElementById("overlay");
     x.style.display = "show";
@@ -428,7 +412,7 @@ function save_overlay() {
 
 function to_pdf() {
     window.location.replace('PDFpreview.html');
-    localStorage.setItem("local_documentaional_answers",  JSON.stringify(documentaional_answers));
+    localStorage.setItem("local_documentaional_answers",  JSON.stringify(documentational_answers));
     localStorage.setItem("local_emergency_answers",  JSON.stringify(emergency_answers));
     localStorage.setItem("local_welfare_answers",  JSON.stringify(welfare_answers));
     localStorage.setItem("local_cossh_answers",  JSON.stringify(cossh_answers));
@@ -781,11 +765,11 @@ function PDFcalculate() {
 
 function checkForComment(doc,line, question, category){
     const pdf_comments = JSON.parse(localStorage.getItem("local_comments"));
-
+    console.log(pdf_comments)
 
     for (let i = 2; i < pdf_comments.length; i+=3) {
 
-        if(pdf_comments[i] == category && pdf_comments[i-1]-1 == question) {
+        if(pdf_comments[i-1] == category && pdf_comments[i]-1 == question) {
             doc.text(pdf_comments[i-2], 10, line);
             line = nextLine(line, doc);
         }
@@ -799,12 +783,11 @@ function removeDataPrefix(inputString) {
   }
 
 function checkForPhoto(doc,line, question, category) {
-    console.log(line)
     const pdf_photos = JSON.parse(localStorage.getItem("local_photos"));
 
     for (let i = 2; i < pdf_photos.length; i+=3) {
+
         if(pdf_photos[i]-1 == question && pdf_photos[i-1] == category) {
-            console.log(line)
             pdf_photos_encoded = removeDataPrefix(pdf_photos[i-2]);
             
             var width = 0;
@@ -817,7 +800,7 @@ function checkForPhoto(doc,line, question, category) {
 
             console.log("photo size: ", width, height)
 
-            doc.addImage(pdf_photos_encoded, 'JPEG', 50, line, width/3.9, height/3.9); // meaurements of height and width are in different scale to PDF creator  
+            doc.addImage(pdf_photos_encoded, 'JPEG', (210-(width/3.9))/2, line, width/3.9, height/3.9); // meaurements of height and width are in different scale to PDF creator  
             line = nextLine(line + Math.round(height/3.9), doc); 
   
         }
