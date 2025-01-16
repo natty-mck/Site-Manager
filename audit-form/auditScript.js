@@ -399,7 +399,6 @@ function save_overlay() {
 
             try {
                 comment = document.getElementById((i+1) + "comment-box").value;
-                console.log(comment)
                 comments.push(comment, i+1 ,formType);
             } catch (error) {
                 comments.push("blank");
@@ -422,7 +421,6 @@ function save_overlay() {
         x.style.display = "none";
     }
 
-    console.log(comments);
 }
 
 
@@ -647,10 +645,8 @@ function PDFcalculate() {
                     try {doc.text(pdf_documentaional_answers[i], 10, line);} catch (error) {doc.text("No answer", 10, line);}
                     line = nextLine(line, doc);
                     line = checkForComment(doc,line, i, "documentation");
-                    console.log(line)
+                    line = nextLine(line, doc);
                     line = checkForPhoto(doc,line, i, "documentation");
-                    console.log(line)
-
                 }
                 line = nextLine(line, doc);
                 //add first-aid answers
@@ -742,32 +738,36 @@ function removeDataPrefix(inputString) {
   }
 
 function checkForPhoto(doc,line, question, category) {
+    console.log(line)
     const pdf_photos = JSON.parse(localStorage.getItem("local_photos"));
 
     for (let i = 2; i < pdf_photos.length; i+=3) {
         if(pdf_photos[i]-1 == question && pdf_photos[i-1] == category) {
+            console.log(line)
             pdf_photos_encoded = removeDataPrefix(pdf_photos[i-2]);
             
+            var width = 0;
+            var height = 0;
             let img = new Image();
             img.src = pdf_photos[i-2].substring(1, pdf_photos[i-2].length-1);
 
+            width = img.naturalWidth;
+            height = img.naturalHeight;
 
-            img.onload().then(() => {
-                let width = img.naturalWidth;
-                let height = img.naturalHeight;
+            console.log(width, height)
+            
+            console.log(line)
 
-                console.log(height)
-                console.log(width)
-                
-                console.log(height, line, line + Math.round(height/2))
-                line = nextLine(line + Math.round(height/2), doc);
-                console.log(line)
-            }); 
-            doc.addImage(pdf_photos_encoded, 'JPEG', 50, 10, 200, 200);           
+
+            doc.addImage(pdf_photos_encoded, 'JPEG', 50, line, width/3.9, height/3.9); // meaurements of height and width are in different scale to PDF creator  
+            line = nextLine(line + Math.round(height/3.9), doc); 
+  
         }
     }
+    console.log(line)
     return line;
 }
+
 
 function nextLine(line, doc){
     line += 5;
