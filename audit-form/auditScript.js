@@ -648,6 +648,7 @@ function PDFcalculate() {
                     line = nextLine(line, doc);
                     line = checkForComment(doc,line, i, "documentation");
                     line = checkForPhoto(doc,line, i, "documentation");
+
                 }
                 line = nextLine(line, doc);
                 //add first-aid answers
@@ -733,27 +734,38 @@ function checkForComment(doc,line, question, category){
     return line;
 }
 
+function removeDataPrefix(inputString) {
+    let cleanedString = inputString.replace(/^"data:image[^;]+;base64,/, '').replace(/"/g, '');
+    return cleanedString;
+  }
+
 function checkForPhoto(doc,line, question, category) {
     const pdf_photos = JSON.parse(localStorage.getItem("local_photos"));
-    console.log(
-        pdf_photos
-    )
+
     for (let i = 2; i < pdf_photos.length; i+=3) {
-
         if(pdf_photos[i]-1 == question && pdf_photos[i-1] == category) {
-            pdf_photos_encoded = pdf_photos[i-2];
-            console.log(pdf_photos_encoded)
-            doc.addImage(pdf_photos_encoded, 'JPEG', 15, 40, 359, 359);
-            line = nextLine(line, doc);
+            pdf_photos_encoded = removeDataPrefix(pdf_photos[i-2]);
+            
+            let img = new Image();
+            img.src = pdf_photos[i-2].substring(1, pdf_photos[i-2].length-1);
 
+            var width = 0;
+            var height = 0;
+            img.decode().then(() => {
+                width = img.width;
+                height = img.height;
+            });
 
+            doc.addImage(pdf_photos_encoded, 'JPEG', 50, 10, width, height);
+
+            line = nextLine(line + (height/2), doc);
         }
     }
     return line;
 }
 
 function nextLine(line, doc){
-    line = line + 5;
+    line += 5;
     
     if (line > 250) {
         doc.addPage();
