@@ -651,9 +651,9 @@ function PDFcalculate() {
 
                 var text = "Site Audit Form";
                 var pageWidth = doc.internal.pageSize.getWidth(); 
-                var textWidth = doc.getStringUnitWidth(text) * doc.internal.getFontSize() / doc.internal.scaleFactor; 
+                var textWidth = doc.getStringUnitWidth(text) * 24 / doc.internal.scaleFactor; 
                 var textOffset = (pageWidth - textWidth) /2;
-                doc.text(text, textOffset, line);
+                doc.setFontSize(24);doc.text(text, textOffset, line);doc.setFontSize(16);
 
                 doc.addImage(GLogoBase64, 40, 100)
 
@@ -674,9 +674,11 @@ function PDFcalculate() {
                 doc.addPage();
                 //end of front page
 
+                
+                doc.setFontSize(14)
                 line = 10;
                 //add documentation answers
-                doc.text("Documentation", 10,line)
+                doc.setFont(undefined, 'bold');doc.text("Documentation", 10,line);doc.setFont(undefined, 'normal');
                 line = nextLine(line, doc);
                 for (let i = 0; i < data[0]["documentation"].length; i++) {
                     doc.text(data[0]["documentation"][i]["question"], 10, line);
@@ -689,7 +691,7 @@ function PDFcalculate() {
                 }
                 line = nextLine(line, doc);
                 //add first-aid answers
-                doc.text("first-aid", 10,line)
+                doc.setFont(undefined, 'bold');doc.text("first-aid", 10,line);doc.setFont(undefined, 'normal');
                 line = nextLine(line, doc);
                 for (let i = 0; i < data[1]["first-aid"].length; i++) {
                     doc.text(data[1]["first-aid"][i]["question"], 10, line);
@@ -702,7 +704,7 @@ function PDFcalculate() {
                 }
                 line = nextLine(line, doc);
                 //add welfare answers
-                doc.text("welfare", 10,line)
+                doc.setFont(undefined, 'bold');doc.text("welfare", 10,line);doc.setFont(undefined, 'normal');
                 line = nextLine(line, doc);
                 for (let i = 0; i < data[2]["welfare"].length; i++) {
                     doc.text(data[2]["welfare"][i]["question"], 10, line);
@@ -715,7 +717,7 @@ function PDFcalculate() {
                 }
                 line = nextLine(line, doc);
                 //add COSSH answers
-                doc.text("COSSH", 10,line)
+                doc.setFont(undefined, 'bold');doc.text("COSSH", 10,line);doc.setFont(undefined, 'normal');
                 line = nextLine(line, doc);
                 for (let i = 0; i < data[3]["COSSH"].length; i++) {
                     doc.text(data[3]["COSSH"][i]["question"], 10, line);
@@ -728,7 +730,7 @@ function PDFcalculate() {
                 }
                 line = nextLine(line, doc);
                 //add equipment answers
-                doc.text("equipment", 10,line)
+                doc.setFont(undefined, 'bold');doc.text("equipment", 10,line);doc.setFont(undefined, 'normal');
                 line = nextLine(line, doc);
                 for (let i = 0; i < data[4]["equipment"].length; i++) {
                     doc.text(data[4]["equipment"][i]["question"], 10, line);
@@ -741,7 +743,7 @@ function PDFcalculate() {
                 }
                 line = nextLine(line, doc);
                 //add ppe answers
-                doc.text("ppe", 10,line)
+                doc.setFont(undefined, 'bold');doc.text("ppe", 10,line);doc.setFont(undefined, 'normal');
                 line = nextLine(line, doc);
                 for (let i = 0; i < data[5]["ppe"].length; i++) {
                     doc.text(data[5]["ppe"][i]["question"], 10, line);
@@ -754,7 +756,7 @@ function PDFcalculate() {
                 }
                 line = line + 10;
                 //add high-risk answers
-                doc.text("high-risk", 10,line)
+                doc.setFont(undefined, 'bold');doc.text("high-risk", 10,line);doc.setFont(undefined, 'normal');
                 line = nextLine(line, doc);
                 for (let i = 0; i < data[6]["high-risk"].length; i++) {
                     doc.text(data[6]["high-risk"][i]["question"], 10, line);
@@ -820,7 +822,7 @@ function checkForPhoto(doc,line, question, category) {
 function nextLine(line, doc){
     line += 5;
     
-    if (line > 250) {
+    if (line > 245) {
         doc.addPage();
         line = 10;
     };
