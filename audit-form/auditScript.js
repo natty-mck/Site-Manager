@@ -645,9 +645,13 @@ function PDFcalculate() {
                 let inspectorValue = localStorage.getItem("PDFaudit_inspectName");
                 let referenceValue = localStorage.getItem("PDFaudit_jobref");
                 let clientValue = localStorage.getItem("PDFaudit_client");
+
+                let ragScore = localStorage.getItem("PDFaudit_ragscore");
                 
                 //creating front page of form
                 let line = 50;
+
+                console.log(doc.internal.scaleFactor)
 
                 var text = "Site Audit Form";
                 var pageWidth = doc.internal.pageSize.getWidth(); 
@@ -667,8 +671,10 @@ function PDFcalculate() {
                 line = nextLine(line, doc);
                 doc.text(`Project Referance Name: ${referenceValue}`, 40, line);
                 line = nextLine(line, doc);
-                doc.text(`Client's name: ${clientValue}`, 40, line);
+                doc.text(`Client's Name: ${clientValue}`, 40, line);
                 line = nextLine(line, doc);
+                line = nextLine(line, doc);
+                doc.text(`Assigned RAG Score: ${ragScore}`, 40, line);
                 line = nextLine(line, doc);
 
                 doc.addPage();
@@ -691,7 +697,7 @@ function PDFcalculate() {
                 }
                 line = nextLine(line, doc);
                 //add first-aid answers
-                doc.setFont(undefined, 'bold');doc.text("first-aid", 10,line);doc.setFont(undefined, 'normal');
+                doc.setFont(undefined, 'bold');doc.text("First Aid / Emergency", 10,line);doc.setFont(undefined, 'normal');
                 line = nextLine(line, doc);
                 for (let i = 0; i < data[1]["first-aid"].length; i++) {
                     doc.text(data[1]["first-aid"][i]["question"], 10, line);
@@ -704,7 +710,7 @@ function PDFcalculate() {
                 }
                 line = nextLine(line, doc);
                 //add welfare answers
-                doc.setFont(undefined, 'bold');doc.text("welfare", 10,line);doc.setFont(undefined, 'normal');
+                doc.setFont(undefined, 'bold');doc.text("Welfare / Site Establishment", 10,line);doc.setFont(undefined, 'normal');
                 line = nextLine(line, doc);
                 for (let i = 0; i < data[2]["welfare"].length; i++) {
                     doc.text(data[2]["welfare"][i]["question"], 10, line);
@@ -717,7 +723,7 @@ function PDFcalculate() {
                 }
                 line = nextLine(line, doc);
                 //add COSSH answers
-                doc.setFont(undefined, 'bold');doc.text("COSSH", 10,line);doc.setFont(undefined, 'normal');
+                doc.setFont(undefined, 'bold');doc.text("Occupational Health / COSSH", 10,line);doc.setFont(undefined, 'normal');
                 line = nextLine(line, doc);
                 for (let i = 0; i < data[3]["COSSH"].length; i++) {
                     doc.text(data[3]["COSSH"][i]["question"], 10, line);
@@ -730,7 +736,7 @@ function PDFcalculate() {
                 }
                 line = nextLine(line, doc);
                 //add equipment answers
-                doc.setFont(undefined, 'bold');doc.text("equipment", 10,line);doc.setFont(undefined, 'normal');
+                doc.setFont(undefined, 'bold');doc.text("Plant / Equipment", 10,line);doc.setFont(undefined, 'normal');
                 line = nextLine(line, doc);
                 for (let i = 0; i < data[4]["equipment"].length; i++) {
                     doc.text(data[4]["equipment"][i]["question"], 10, line);
@@ -743,7 +749,7 @@ function PDFcalculate() {
                 }
                 line = nextLine(line, doc);
                 //add ppe answers
-                doc.setFont(undefined, 'bold');doc.text("ppe", 10,line);doc.setFont(undefined, 'normal');
+                doc.setFont(undefined, 'bold');doc.text("Personal Protective Equipment", 10,line);doc.setFont(undefined, 'normal');
                 line = nextLine(line, doc);
                 for (let i = 0; i < data[5]["ppe"].length; i++) {
                     doc.text(data[5]["ppe"][i]["question"], 10, line);
@@ -756,7 +762,7 @@ function PDFcalculate() {
                 }
                 line = line + 10;
                 //add high-risk answers
-                doc.setFont(undefined, 'bold');doc.text("high-risk", 10,line);doc.setFont(undefined, 'normal');
+                doc.setFont(undefined, 'bold');doc.text("High Risk Operations", 10,line);doc.setFont(undefined, 'normal');
                 line = nextLine(line, doc);
                 for (let i = 0; i < data[6]["high-risk"].length; i++) {
                     doc.text(data[6]["high-risk"][i]["question"], 10, line);
@@ -775,6 +781,8 @@ function PDFcalculate() {
 
 function checkForComment(doc,line, question, category){
     const pdf_comments = JSON.parse(localStorage.getItem("local_comments"));
+
+
     for (let i = 2; i < pdf_comments.length; i+=3) {
 
         if(pdf_comments[i] == category && pdf_comments[i-1]-1 == question) {
