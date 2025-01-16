@@ -647,7 +647,9 @@ function PDFcalculate() {
                     try {doc.text(pdf_documentaional_answers[i], 10, line);} catch (error) {doc.text("No answer", 10, line);}
                     line = nextLine(line, doc);
                     line = checkForComment(doc,line, i, "documentation");
+                    console.log(line)
                     line = checkForPhoto(doc,line, i, "documentation");
+                    console.log(line)
 
                 }
                 line = nextLine(line, doc);
@@ -749,16 +751,19 @@ function checkForPhoto(doc,line, question, category) {
             let img = new Image();
             img.src = pdf_photos[i-2].substring(1, pdf_photos[i-2].length-1);
 
-            var width = 0;
-            var height = 0;
-            img.decode().then(() => {
-                width = img.width;
-                height = img.height;
-            });
 
-            doc.addImage(pdf_photos_encoded, 'JPEG', 50, 10, width, height);
+            img.onload().then(() => {
+                let width = img.naturalWidth;
+                let height = img.naturalHeight;
 
-            line = nextLine(line + (height/2), doc);
+                console.log(height)
+                console.log(width)
+                
+                console.log(height, line, line + Math.round(height/2))
+                line = nextLine(line + Math.round(height/2), doc);
+                console.log(line)
+            }); 
+            doc.addImage(pdf_photos_encoded, 'JPEG', 50, 10, 200, 200);           
         }
     }
     return line;
