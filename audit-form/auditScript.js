@@ -19,6 +19,9 @@ const hro_answers = [];
 
 const max_question = 26;
 
+var currentView = 1;
+var previewBase = "PDFpreview-container-";
+
 if (window.location.pathname == "/auditMeta.html") {
     checkMeta();
 }
@@ -479,7 +482,7 @@ function loadQuestions(category, page, jsonindex, amountQuest, title, start) {
 
     const pdf_photos = JSON.parse(localStorage.getItem("local_photos"));
     const pdf_comments = JSON.parse(localStorage.getItem("local_comments"));
-
+   
     if (pdf_photos.length > 0) {photosPresent = true};
            
 
@@ -540,16 +543,25 @@ function loadQuestions(category, page, jsonindex, amountQuest, title, start) {
                     
                 };
      
-                if (category == pdf_comments[j+2] && i+1 == pdf_comments[j+1]) {
+                console.log(j)
+                if (category == pdf_comments[j+1] && i+1 == pdf_comments[j+2]) {
                     var comment = pdf_comments[j];
                 } else {
                     var comment = "no comment";
+                }
+
+                if (category == pdf_photos[j+1] && i+1 == pdf_photos[j+2]) {
+                    var photo = "Photo Added";
+                } else {
+                    var photo = "no photo";
                 }
                 
                 PDFcontainer.innerHTML +=   `
                                             <p class="pdfInnerText" class="audit-results"> ${question} <br> ${answers[i]}
                                             <br>
                                             ${comment}
+                                            <br>
+                                            ${photo}
                                             </p>
                                             `;
                 PDFcontainer.innerHTML += `<hr>`;
@@ -559,48 +571,6 @@ function loadQuestions(category, page, jsonindex, amountQuest, title, start) {
 };
 
 
-function loadphotos() {
-    const pdf_photos = JSON.parse(localStorage.getItem("local_photos"));
-    var photoContainer = document.getElementById("photoGrid-1");
-
-    divIds.push("PDFpreview-photo-container-1");
-   
-    var containercount = 1;
-    var count = 0;
-    for (let x = 0; x < (pdf_photos.length); x = x + 3) {
-        
-        containercount += 1;
-        count += 1;
-
-        if (count == 12) {
-
-            var elem = document.createElement('div');
-            elem.className = 'PDFpreview-photo-container';
-            elem.id = `PDFpreview-photo-container-${containercount}`;
-
-            document.body.appendChild(elem);
-
-            var photoGrid = document.createElement('div');
-            photoGrid.id = `photoGrid-${containercount}`;
-            photoGrid.className = 'photoGrid';
-
-            elem.appendChild(photoGrid);
-
-            photoContainer = document.getElementById(`photoGrid-${containercount}`);
-            divIds.push(`PDFpreview-photo-container-${containercount}`);
-            
-            count = 0;
-        };
-
-        photoContainer.innerHTML += `   
-                                        <div>
-                                        <p class="pdfInnerText"> Type: ${pdf_photos[x+1]} <br> Question: ${pdf_photos[x+2]} </p>
-                                        <img class="imgPDF" src= ${pdf_photos[x]} ></img> <br>
-                                        </div>
-                                    `;
-     
-    };
-}
 
 function PDFcalculate() {
     const pdf_documentational_answers = JSON.parse(localStorage.getItem("local_documentational_answers"));
@@ -784,6 +754,8 @@ function removeDataPrefix(inputString) {
 
 function checkForPhoto(doc,line, question, category) {
     const pdf_photos = JSON.parse(localStorage.getItem("local_photos"));
+    var width = 0;
+    var height = 0;
 
     if (pdf_photos) { 
         for (let i = 2; i < pdf_photos.length; i+=3) {
@@ -796,19 +768,23 @@ function checkForPhoto(doc,line, question, category) {
                 let img = new Image();
                 img.src = pdf_photos[i-2].substring(1, pdf_photos[i-2].length-1);
 
+
                 width = img.naturalWidth;
-                height = img.naturalHeight;
+                height = img.naturalHeight;      
+                
 
-                console.log("photo size: ", width, height)
+                console.log(width, height)
 
-                doc.addImage(pdf_photos_encoded, 'JPEG', (210-(width/3.9))/2, line, width/3.9, height/3.9); // meaurements of height and width are in different scale to PDF creator  
+                doc.addImage(pdf_photos_encoded, 'JPEG', (210-(width/3.9))/2, line, width/3.9, height/3.9); 
                 line = nextLine(line + Math.round(height/3.9), doc); 
-    
+
             }
         }
     }
     return line;
 }
+
+
 
 
 function nextLine(line, doc){
@@ -838,3 +814,37 @@ document.getElementById("take-photo-button").addEventListener("click", function(
 
     document.getElementById(questionNum + "takePhoto").innerHTML = "Photo taken!"
 });
+
+//navigating PDF preview
+
+function goForward() {
+    if (currentView > 0) {
+        let currentPreview = previewBase + currentView;
+        console.log(currentView)
+        console.log(currentPreview)
+        currentPreview = document.getElementById(currentPreview);
+        currentPreview.style.display = "none"
+        currentView += 1;
+        currentPreview = previewBase + currentView;
+        console.log(currentView)
+        console.log(currentPreview)
+        currentPreview = document.getElementById(currentPreview);
+        currentPreview.style.display = "block"
+    }
+}
+
+function goBack() {
+    if (currentView > 1) {
+        let currentPreview = previewBase + currentView;
+        console.log(currentView)
+        console.log(currentPreview)
+        currentPreview = document.getElementById(currentPreview);
+        currentPreview.style.display = "none"
+        currentView -= 1;
+        currentPreview = previewBase + currentView;
+        console.log(currentView)
+        console.log(currentPreview)
+        currentPreview = document.getElementById(currentPreview);
+        currentPreview.style.display = "block"
+    }
+}
