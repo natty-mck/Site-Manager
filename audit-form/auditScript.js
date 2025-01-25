@@ -583,7 +583,7 @@ function PDFcalculate() {
     
     fetch('questions.json')
             .then(response => response.json())
-            .then(data => {
+            .then(async data => {
 
                 const { jsPDF } = window.jspdf;
                 const doc = new jsPDF();
@@ -638,13 +638,15 @@ function PDFcalculate() {
                 doc.setFont(undefined, 'bold');doc.text("Documentation", 10,line);doc.setFont(undefined, 'normal');
                 line = nextLine(line, doc);
                 for (let i = 0; i < data[0]["documentation"].length; i++) {
+                    console.log(i)
                     doc.text(data[0]["documentation"][i]["question"], 10, line);
                     line = nextLine(line, doc);
                     try {doc.text(pdf_documentational_answers[i], 10, line);} catch (error) {doc.text("No answer", 10, line);}
                     line = nextLine(line, doc);
                     line = checkForComment(doc,line, i, "documentation");
                     line = nextLine(line, doc);
-                    line = checkForPhoto(doc,line, i, "documentation");
+                    line = await checkForPhoto(doc,line, i, "documentation");
+ 
                 }
                 line = nextLine(line, doc);
                 //add first-aid answers
@@ -657,7 +659,7 @@ function PDFcalculate() {
                     line = nextLine(line, doc);
                     line = checkForComment(doc,line, i, "first-aid");
                     line = nextLine(line, doc);
-                    line = checkForPhoto(doc,line, i, "first-aid");
+                    line = await checkForPhoto(doc,line, i, "first-aid");
                 }
                 line = nextLine(line, doc);
                 //add welfare answers
@@ -670,7 +672,7 @@ function PDFcalculate() {
                     line = nextLine(line, doc);
                     line = checkForComment(doc,line, i, "welfare");
                     line = nextLine(line, doc);
-                    line = checkForPhoto(doc,line, i, "welfare");
+                    line = await checkForPhoto(doc,line, i, "welfare");
                 }
                 line = nextLine(line, doc);
                 //add COSSH answers
@@ -683,7 +685,7 @@ function PDFcalculate() {
                     line = nextLine(line, doc);
                     line = checkForComment(doc,line, i, "COSSH");
                     line = nextLine(line, doc);
-                    line = checkForPhoto(doc,line, i, "COSSH");
+                    line = await checkForPhoto(doc,line, i, "COSSH");
                 }
                 line = nextLine(line, doc);
                 //add equipment answers
@@ -696,7 +698,7 @@ function PDFcalculate() {
                     line = nextLine(line, doc);
                     line = checkForComment(doc,line, i, "equipment");
                     line = nextLine(line, doc);
-                    line = checkForPhoto(doc,line, i, "equipment");
+                    line = await checkForPhoto(doc,line, i, "equipment");
                 }
                 line = nextLine(line, doc);
                 //add ppe answers
@@ -709,7 +711,7 @@ function PDFcalculate() {
                     line = nextLine(line, doc);
                     line = checkForComment(doc,line, i, "ppe");
                     line = nextLine(line, doc);
-                    line = checkForPhoto(doc,line, i, "ppe");
+                    line = await checkForPhoto(doc,line, i, "ppe");
                 }
                 line = line + 10;
                 //add high-risk answers
@@ -722,10 +724,11 @@ function PDFcalculate() {
                     line = nextLine(line, doc);
                     line = checkForComment(doc,line, i, "high-risk");
                     line = nextLine(line, doc);
-                    line = checkForPhoto(doc,line, i, "high-risk");
+                    line = await checkForPhoto(doc,line, i, "high-risk");
+                    console.log("end", i)
                 }
-
-                doc.save("a4.pdf");
+                doc.save("a4.pdf")
+ 
             }
     )    
 }
@@ -752,10 +755,10 @@ function removeDataPrefix(inputString) {
     return cleanedString;
   }
 
-function checkForPhoto(doc,line, question, category) {
+
+async function checkForPhoto(doc,line, question, category) {
+    console.log("checkforphoto START")
     const pdf_photos = JSON.parse(localStorage.getItem("local_photos"));
-    var width = 0;
-    var height = 0;
 
     if (pdf_photos) { 
         for (let i = 2; i < pdf_photos.length; i+=3) {
@@ -763,28 +766,36 @@ function checkForPhoto(doc,line, question, category) {
             if(pdf_photos[i]-1 == question && pdf_photos[i-1] == category) {
                 pdf_photos_encoded = removeDataPrefix(pdf_photos[i-2]);
                 
-                var width = 0;
-                var height = 0;
+
                 let img = new Image();
                 img.src = pdf_photos[i-2].substring(1, pdf_photos[i-2].length-1);
 
 
-                width = img.naturalWidth;
-                height = img.naturalHeight;      
+                let { width, height } = await getImageDimensions(img);
                 
-
-                console.log(width, height)
-
                 doc.addImage(pdf_photos_encoded, 'JPEG', (210-(width/3.9))/2, line, width/3.9, height/3.9); 
-                line = nextLine(line + Math.round(height/3.9), doc); 
-
+                
+                line = nextLine(line + Math.round(height/3.9), doc);   
             }
         }
     }
+    console.log("checkforphoto END")
     return line;
 }
 
+function getImageDimensions(img) {
+    return new Promise((resolve, reject) => {
+        img.onload = function() {
+            const width = img.naturalWidth; 
+            const height = img.naturalHeight; 
+            resolve({ width, height }); 
+        };
 
+        img.onerror = function() {
+            reject(new Error('Failed to load image.'));
+        };
+    });
+}
 
 
 function nextLine(line, doc){
