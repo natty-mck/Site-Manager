@@ -367,22 +367,27 @@ function save_overlay() {
         for (let i = 0; i < max_question; i++) {
 
             try {             
-                comment = document.getElementById((i+1) + "comment-box").value;
-                comments.push(comment, formType, i+1);
+
+                for (let j = 0; j < comments.length; j++) {
                 console.log(comments)
-                if (comments.includes(formType) && comments.includes(i+1) && comments.length > 3) {
-                    for (let j = 0; j < comments.length; j++) {
-                        if (comments[j] == formType) {
-                            console.log(j)
-                            console.log(comments[j])
-                            comments.splice(j-1, 3);
-                            break
-                        } 
+                console.log((comments[j] == formType && comments[j+1] == j+1))
+                console.log(comments[j], comments[j+1])
+                    if ((comments[j] == formType && comments[j+1] == j+1) && comments.length > 3) {
+                        
+                            if (comments[j] == formType) {
+                                console.log(j)
+                                console.log(comments[j])
+                                comments.splice(j-1, 3);
+                                break
+                            } 
                     }
                 }
-                console.log(comments)
+                comment = document.getElementById((i+1) + "comment-box").value;
+
+                comments.push(comment, formType, i+1);
                 
-            } catch (error) {}
+            } catch (error) {console.log(error)};
+            console.log(comments)
 
             try {
                 var answer = document.querySelector("input[name='" + "id" + i + "']:checked").value;
