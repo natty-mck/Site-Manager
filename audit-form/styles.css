@@ -184,7 +184,9 @@ textarea {
     padding-right: 10px;
     padding-bottom: 10px;
     border: black solid 2px;
-    min-width: 450px;
+    max-width: 90% !important;
+    width: 550px;
+    
 }
 
 #exit_overlay {
@@ -218,13 +220,15 @@ textarea {
     padding: 6px;
     border-radius: 5px;
     transform: translateX(-50%);
-    background-color: rgba(51, 231, 6, 0.753);
+    background-color: #0D6EFD;
+    color: white;
+    font: x-large;
     width: 200px;
 
 }
 
 #export_button:hover {
-    background-color: rgba(47, 192, 11, 0.678);
+    background-color: #0B5ED7;
     transition: 400ms;
 }
 
@@ -261,6 +265,7 @@ label {
     position: absolute;
     height: max-content;
     width: max-content;
+    max-width: 80%;
     background-color: #d1cccc;
     left: 50%;
     transform: translate(-50%);

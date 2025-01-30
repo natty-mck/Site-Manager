@@ -7,8 +7,8 @@
     margin-top: 20px;
     position: relative;
     width: 1344px;
-    max-width: 100%;
-    max-height: calc(1344 * 1.4142);
+    max-width: 85%;
+    max-height: calc(85% * 1.4142);
     aspect-ratio: 1/1.4142;
     background-color: whitesmoke;
     left: 50%;
@@ -17,27 +17,13 @@
     font-size: large;
 }
 
-.PDFpreview-photo-container {
-    margin-top: 20px;
-    position: relative;
-    width: 1344px;
-    max-width: 100%;
-    max-height: calc(1344 * 1.4142);
-    aspect-ratio: 1/1.4142;
-    background-color: whitesmoke;
-    left: 50%;
-    transform: translateX(-50%);
-    border: 2px black solid;
-    font-size: large;
-
-}
 
 
 #PDFdownload {
     position: relative;
     border-radius: 10px;
     padding: 5px;
-    background-color: cornflowerblue;
+    background-color: #0D6EFD;
     color: white;
     margin-top: 10px;
     width: 90px;
@@ -51,7 +37,7 @@
     position: relative;
     border-radius: 10px;
     padding: 5px;
-    background-color: cornflowerblue;
+    background-color: #0D6EFD;
     color: white;
     margin-top: 10px;
     width: 90px;
@@ -66,13 +52,6 @@
     left: 50%;
     width: max-content;
     transform: translateX(-50%);
-}
-
-@media print {
-    #content {
-        font-size: 12px; 
-        margin: 0; 
-    }
 }
 
 #lastPage {
@@ -91,7 +70,7 @@
 
 .audit-meta {
     text-align: left;
-    font-size: 23px;
+    font-size: large;
     margin-left: 8px;
 }
 
@@ -118,19 +97,51 @@
 }
 
 #goBack {
-    position: absolute;
+    position: fixed;
     left: 10%;
     top: 50%;
+    z-index: 99;
     border-radius: 3px;
+    background-color: rgb(99, 98, 98);
+    color: white;
+    font-size: 20px;
+    height: 40px;
+    width: 30px;
 }
 
 #goForward {
-    position: absolute;
+    position: fixed;
+    float: right;
     right: 10%;
     top: 50%;
+    z-index: 99;
     border-radius: 3px;
+    background-color: rgb(99, 98, 98);
+    color: white;
+    font-size: 20px;
+    height: 40px;
+    width: 30px;
 }
 
+@media only screen and (max-width: 1800px) {
+    #goBack {
+        left: 5%;
+    }
+    #goForward {
+        right: 5%;
+
+    }
+}
+
+@media only screen and (max-width: 900px) {
+    #goBack {
+        left: 1%;
+    }
+    #goForward {
+        right: 1%;
+
+    }
+}
 
 #downloadSplash {
     position: fixed;

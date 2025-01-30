@@ -69,21 +69,21 @@ function displayQuestions(type) {
                 if (type === "high-risk") {
                     if (count === 0) {
                         const heading = document.createElement('div');
-                        heading.innerHTML = "<h1>Breaking Ground</h1>";
+                        heading.innerHTML = "<h2>Breaking Ground</h2>";
                         container.appendChild(heading);
 
                     } else if (count === 6) {
                         const heading = document.createElement('div');
-                        heading.innerHTML = "<h1>Working at a height</h1>";
+                        heading.innerHTML = "<h2>Working at a height</h2>";
                         container.appendChild(heading);
 
                     } else if (count === 11) {
                         const heading = document.createElement('div');
-                        heading.innerHTML = "<h1>Confined Spaces</h1>";
+                        heading.innerHTML = "<h2>Confined Spaces</h2>";
                         container.appendChild(heading);
                     } else if (count === 18) {
                         const heading = document.createElement('div');
-                        heading.innerHTML = "<h1>Lifting</h1>";
+                        heading.innerHTML = "<h2>Lifting</h2>";
                         container.appendChild(heading);
                     }
                 }
@@ -156,7 +156,7 @@ function addCommentBox(number) {
         let commentInputBox  = document.getElementById(number + "comment");
         commentInputBox.innerHTML +=    ` 
                                         <div id= "${number + "comment-container"}">
-                                            <textarea id = "${number + "comment-box"}" style="margin-bottom: 20px;" placeholder="Enter Description"></textarea>
+                                            <textarea id = "${number + "comment-box"}" style="margin-bottom: 20px;width:300px;" placeholder="Enter Comment"></textarea>
                                         </div>
                                         `
     }
@@ -481,6 +481,8 @@ function loadQuestions(category, page, jsonindex, amountQuest, title, start) {
     const pdf_hro_answers = JSON.parse(localStorage.getItem("local_hro_answers"));
 
     const pdf_photos = JSON.parse(localStorage.getItem("local_photos"));
+    console.log(pdf_photos)
+
     const pdf_comments = JSON.parse(localStorage.getItem("local_comments"));
    
     if (pdf_photos.length > 0) {photosPresent = true};
@@ -543,7 +545,6 @@ function loadQuestions(category, page, jsonindex, amountQuest, title, start) {
                     
                 };
      
-                console.log(j)
                 if (category == pdf_comments[j+1] && i+1 == pdf_comments[j+2]) {
                     var comment = pdf_comments[j];
                 } else {
@@ -602,8 +603,6 @@ function PDFcalculate() {
                 //creating front page of form
                 let line = 50;
 
-                console.log(doc.internal.scaleFactor)
-
                 var text = "Site Audit Form";
                 var pageWidth = doc.internal.pageSize.getWidth(); 
                 var textWidth = doc.getStringUnitWidth(text) * 24 / doc.internal.scaleFactor; 
@@ -638,8 +637,7 @@ function PDFcalculate() {
                 doc.setFont(undefined, 'bold');doc.text("Documentation", 10,line);doc.setFont(undefined, 'normal');
                 line = nextLine(line, doc);
                 for (let i = 0; i < data[0]["documentation"].length; i++) {
-                    console.log(i)
-                    doc.text(data[0]["documentation"][i]["question"], 10, line);
+                    line = addQuestion(doc, data, line, i, 0, "documentation")
                     line = nextLine(line, doc);
                     try {doc.text(pdf_documentational_answers[i], 10, line);} catch (error) {doc.text("No answer", 10, line);}
                     line = nextLine(line, doc);
@@ -653,7 +651,7 @@ function PDFcalculate() {
                 doc.setFont(undefined, 'bold');doc.text("First Aid / Emergency", 10,line);doc.setFont(undefined, 'normal');
                 line = nextLine(line, doc);
                 for (let i = 0; i < data[1]["first-aid"].length; i++) {
-                    doc.text(data[1]["first-aid"][i]["question"], 10, line);
+                    line = addQuestion(doc, data, line, i, 1, "first-aid")
                     line = nextLine(line, doc);
                     try {doc.text(pdf_emergency_answers[i], 10, line);} catch (error) {doc.text("No answer", 10, line);}
                     line = nextLine(line, doc);
@@ -667,6 +665,7 @@ function PDFcalculate() {
                 line = nextLine(line, doc);
                 for (let i = 0; i < data[2]["welfare"].length; i++) {
                     doc.text(data[2]["welfare"][i]["question"], 10, line);
+                    line = addQuestion(doc, data, line, i, 2, "welfare")
                     line = nextLine(line, doc);
                     try {doc.text(pdf_welfare_answers[i], 10, line);} catch (error) {doc.text("No answer", 10, line);}
                     line = nextLine(line, doc);
@@ -679,7 +678,7 @@ function PDFcalculate() {
                 doc.setFont(undefined, 'bold');doc.text("Occupational Health / COSSH", 10,line);doc.setFont(undefined, 'normal');
                 line = nextLine(line, doc);
                 for (let i = 0; i < data[3]["COSSH"].length; i++) {
-                    doc.text(data[3]["COSSH"][i]["question"], 10, line);
+                    line = addQuestion(doc, data, line, i, 3, "COSSH")
                     line = nextLine(line, doc);
                     try {doc.text(pdf_cossh_answers[i], 10, line);} catch (error) {doc.text("No answer", 10, line);}
                     line = nextLine(line, doc);
@@ -692,7 +691,7 @@ function PDFcalculate() {
                 doc.setFont(undefined, 'bold');doc.text("Plant / Equipment", 10,line);doc.setFont(undefined, 'normal');
                 line = nextLine(line, doc);
                 for (let i = 0; i < data[4]["equipment"].length; i++) {
-                    doc.text(data[4]["equipment"][i]["question"], 10, line);
+                    line = addQuestion(doc, data, line, i, 4, "equipment")
                     line = nextLine(line, doc);
                     try {doc.text(pdf_equipment_answers[i], 10, line);} catch (error) {doc.text("No answer", 10, line);}
                     line = nextLine(line, doc);
@@ -705,7 +704,7 @@ function PDFcalculate() {
                 doc.setFont(undefined, 'bold');doc.text("Personal Protective Equipment", 10,line);doc.setFont(undefined, 'normal');
                 line = nextLine(line, doc);
                 for (let i = 0; i < data[5]["ppe"].length; i++) {
-                    doc.text(data[5]["ppe"][i]["question"], 10, line);
+                    line = addQuestion(doc, data, line, i, 5, "ppe")
                     line = nextLine(line, doc);
                     try {doc.text(pdf_ppe_answers[i], 10, line);} catch (error) {doc.text("No answer", 10, line);}
                     line = nextLine(line, doc);
@@ -718,19 +717,42 @@ function PDFcalculate() {
                 doc.setFont(undefined, 'bold');doc.text("High Risk Operations", 10,line);doc.setFont(undefined, 'normal');
                 line = nextLine(line, doc);
                 for (let i = 0; i < data[6]["high-risk"].length; i++) {
-                    doc.text(data[6]["high-risk"][i]["question"], 10, line);
+                    line = addQuestion(doc, data, line, i, 6, "high-risk")
                     line = nextLine(line, doc);
                     try {doc.text(pdf_hro_answers[i], 10, line);} catch (error) {doc.text("No answer", 10, line);}
                     line = nextLine(line, doc);
                     line = checkForComment(doc,line, i, "high-risk");
                     line = nextLine(line, doc);
                     line = await checkForPhoto(doc,line, i, "high-risk");
-                    console.log("end", i)
                 }
                 doc.save("a4.pdf")
  
             }
     )    
+}
+
+function addQuestion(doc, data, line, i, section, category) {
+    let question = data[section][category][i]["question"]
+    console.log(question)
+    let max_length = 85
+    if (question.length > max_length) {
+        let Aquestion = question.substring(0 , max_length)
+        for (let j = Aquestion.length; j > 0; j = j-1) {
+            console.log(Aquestion[j])
+            if (Aquestion[j] == " ") {
+                var count = j;
+                console.log(count)
+                break;
+                
+            }
+        }
+        doc.text(question.substring(0 , count), 10, line);
+        line = nextLine(line, doc);
+        doc.text(question.substring(count+1 , question.length), 10, line);
+    } else {
+        doc.text(question, 10, line);
+    }
+    return line;
 }
 
 function checkForComment(doc,line, question, category){
@@ -757,7 +779,6 @@ function removeDataPrefix(inputString) {
 
 
 async function checkForPhoto(doc,line, question, category) {
-    console.log("checkforphoto START")
     const pdf_photos = JSON.parse(localStorage.getItem("local_photos"));
 
     if (pdf_photos) { 
@@ -766,20 +787,31 @@ async function checkForPhoto(doc,line, question, category) {
             if(pdf_photos[i]-1 == question && pdf_photos[i-1] == category) {
                 pdf_photos_encoded = removeDataPrefix(pdf_photos[i-2]);
                 
-
                 let img = new Image();
                 img.src = pdf_photos[i-2].substring(1, pdf_photos[i-2].length-1);
 
-
                 let { width, height } = await getImageDimensions(img);
+
+                let scale = 3.9
+
                 
-                doc.addImage(pdf_photos_encoded, 'JPEG', (210-(width/3.9))/2, line, width/3.9, height/3.9); 
+                while (width > 210*scale || height > ((297/2.5)-30)*scale) {
+                    width = width * 0.9;
+                    height = height * 0.9;
+                }
+                console.log(height*scale, (297-line)*scale*2)
+                if (height*scale > ((297)-line)*scale*2) {
+                    doc.addPage()
+                    line = 10
+                }
+                
+                
+                doc.addImage(pdf_photos_encoded, 'JPEG', (210-(width/scale))/2, line, width/scale, height/scale); 
                 
                 line = nextLine(line + Math.round(height/3.9), doc);   
             }
         }
     }
-    console.log("checkforphoto END")
     return line;
 }
 
@@ -792,7 +824,7 @@ function getImageDimensions(img) {
         };
 
         img.onerror = function() {
-            reject(new Error('Failed to load image.'));
+            reject(alert("error"));
         };
     });
 }
@@ -829,7 +861,7 @@ document.getElementById("take-photo-button").addEventListener("click", function(
 //navigating PDF preview
 
 function goForward() {
-    if (currentView > 0) {
+    if (currentView > 0 && currentView < 7) {
         let currentPreview = previewBase + currentView;
         console.log(currentView)
         console.log(currentPreview)
