@@ -8,9 +8,13 @@ No -> comment box ✔️ input needs to be saved to a variable ✔️
 Quality Section 
 Spelling ✔️
 question changes ✔️
-photo's under question
-ensure photo upload indexing is correct
-comments indexing and adding to question 
+photo's under question ✔️
+ensure photo upload indexing is correct ✔️
+comments indexing and adding to question ✔️
+comments can be saved and changed ✔️
+photos can be saved and changed 
+comments can be saved and changed 
+camara function fully working
 
 
 Sections
