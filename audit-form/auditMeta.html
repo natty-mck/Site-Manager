@@ -32,33 +32,47 @@
     <div  class = "divider"></div>
 
     <section id="inspection-metadata"> 
-        <form class="inspection-metadata-form" onsubmit="return False">        
+        <form class="inspection-metadata-form" onsubmit="FormPage(event)">        
             <br>
             <label for="proj-name">Project Name:</label><br>
-            <input type="text" class="input" id="proj-name" placeholder="Enter Project Name" name="proj-name"><br><br>
+            <input type="text" class="input" id="proj-name" placeholder="Enter Project Name" name="proj-name" ><br><br>
 
             <label for="date">Date:</label><br>
-            <input type="date" class="input" id="date" name="date"><br><br>
+            <input type="date" class="input" id="date" name="date" ><br><br>
 
             <label for="i-name">Inspection carried out by:</label><br>
-            <input type="text" class="input" id="i-name" placeholder="Enter Your Name" name="i-name"><br><br>
+            <input type="text" class="input" id="i-name" placeholder="Enter Your Name" name="i-name" ><br><br>
 
             <label for="job-ref">Job Reference:</label><br>
-            <input type="text" class="input" id="job-ref" placeholder="Enter Job Reference" name="job-ref"><br><br>
+            <input type="text" class="input" id="job-ref" placeholder="Enter Job Reference" name="job-ref" ><br><br>
 
             <label for="job-ref">Client:</label><br>
-            <input type="text" class="input" id="client" placeholder="Enter Client Name" name="job-ref"><br><br>
+            <input type="text" class="input" id="client" placeholder="Enter Client Name" name="job-ref" ><br><br>
+
+            <label for="siteEmailAddress">Site manger's email:</label><br>
+            <input type="email" class="input" id="client" placeholder="Enter Email Address" name="siteEmailAddress" ><br><br>
 
             
-            
+            <input type="submit" id="button-to-next" class="btn btn-primary" > Next </input>
         </form>
         <br>
-        <button onclick="FormsPage()" id="button-to-next" class="btn btn-primary" > Next </button>
+        
     </section>
     
     <div class = "divider"></div>
 
-    <script> document.getElementById('date').valueAsDate = new Date(); </script>
+    <script> 
+    document.getElementById('date').valueAsDate = new Date();
+
+    function FormPage(event) {
+        event.preventDefault();
+        getAuditValues();
+        window.location.replace("options.html")
+        return false;
+    }
+    
+    
+    </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="auditScript.js"></script>
 </body>

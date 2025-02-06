@@ -3,22 +3,23 @@ const video = document.getElementById('vid');
 const canvas = document.getElementById('vidCanvas');
 const screenshotImage = document.getElementById('vidImg');
 let streamStarted = false;
+let camaraPreviewCanvas = document.getElementById("camaraPreview");
 
-function camaraPreview() {
-    let camaraPreview = document.getElementById("camaraPreview");
+function camaraPreview(count) {
 
-    if (camaraPreview.style.display == "none" || camaraPreview.style.display == "") {
-        camaraPreview.style.display = "block";
+    if (camaraPreviewCanvas.style.display == "none" || camaraPreviewCanvas.style.display == "") {
+        camaraPreviewCanvas.style.display = "block";
         startCamara();
 
     }
-    else if (camaraPreview.style.display == "block") {
-        camaraPreview.style.display = "none";
+    else if (camaraPreviewCanvas.style.display == "block") {
+        camaraPreviewCanvas.style.display = "none";
     }
+
 }
 
 
-var camaraRotation = 'environment';
+var camaraRotation = 'user';
 var constraints = {
   video: {
     facingMode: {
@@ -27,15 +28,25 @@ var constraints = {
   }
 };
 
+
 const getCameraSelection = async () => {
   const devices = await navigator.mediaDevices.enumerateDevices();
+  console.log(1, devices)
   const videoDevices = devices.filter(device => device.kind === 'videoinput');
   const options = videoDevices.map(videoDevice => {
     return `<option value="${videoDevice.deviceId}">${videoDevice.label}</option>`;
   });
   cameraOptions.innerHTML = options.join('');
+  startCamara()
 };
-
+document.addEventListener('DOMContentLoaded', () => {
+    const cameraOptions = document.getElementById('camara-select');
+    if (cameraOptions) {
+      getCameraSelection();
+    } else {
+      console.error('cameraOptions element not found');
+    }
+  });
 function startCamara() {
     if (streamStarted) {
         video.play();
@@ -64,7 +75,6 @@ function handleStream(stream) {
   streamStarted = true;
 };
 
-getCameraSelection();
 
 function capturePhoto() {
     canvas.width = video.videoWidth;
@@ -104,10 +114,9 @@ function RotateCamara() {
 }
 
 function closePhoto() {
-    let camaraPreview = document.getElementById("camaraPreview");
 
-    if (camaraPreview.style.display == "block") {
-        camaraPreview.style.display = "none";
+    if (camaraPreviewCanvas.style.display == "block") {
+        camaraPreviewCanvas.style.display = "none";
     }
 }
 
