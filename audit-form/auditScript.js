@@ -261,7 +261,7 @@ function uploadShow(number) {
             }
         }
     removeComment(number);
-    console.log(photos)
+    
 }
 function toggleImgAtr() {
     if  (document.getElementById("overlay").style.display == "block") {
@@ -375,7 +375,6 @@ function save_overlay() {
             catch (error) { comment = "%nocomment"}
 
             let commmentExist;
-            console.log(comment)
 
             if (comments.length > 1 ) {
                 
@@ -408,14 +407,14 @@ function save_overlay() {
                 
         }
         
-        console.log(comments)
         for (let i = 0; i < max_question; i++) {
             try {
                 var answer = document.querySelector("input[name='" + "id" + i + "']:checked").value;
                 answers.push(answer);
                 
             } catch (error) {}
-        }        
+        }
+        console.log(photos)     
     }
 
     var x = document.getElementById("overlay");
@@ -880,14 +879,10 @@ document.getElementById("take-photo-button").addEventListener("click", function(
 function goForward() {
     if (currentView > 0 && currentView < 7) {
         let currentPreview = previewBase + currentView;
-        console.log(currentView)
-        console.log(currentPreview)
         currentPreview = document.getElementById(currentPreview);
         currentPreview.style.display = "none"
         currentView += 1;
         currentPreview = previewBase + currentView;
-        console.log(currentView)
-        console.log(currentPreview)
         currentPreview = document.getElementById(currentPreview);
         currentPreview.style.display = "block"
     }
@@ -896,14 +891,10 @@ function goForward() {
 function goBack() {
     if (currentView > 1) {
         let currentPreview = previewBase + currentView;
-        console.log(currentView)
-        console.log(currentPreview)
         currentPreview = document.getElementById(currentPreview);
         currentPreview.style.display = "none"
         currentView -= 1;
         currentPreview = previewBase + currentView;
-        console.log(currentView)
-        console.log(currentPreview)
         currentPreview = document.getElementById(currentPreview);
         currentPreview.style.display = "block"
     }

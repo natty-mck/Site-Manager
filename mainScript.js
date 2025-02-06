@@ -1,3 +1,3 @@
 function toSiteAudit() {
-    window.location.replace("/audit-form/auditMeta.html");
+    window.location.href = ("/audit-form/auditMeta.html");
 }
