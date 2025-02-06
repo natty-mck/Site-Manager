@@ -3,6 +3,7 @@ const video = document.getElementById("vid");
 const screenshotImage = document.querySelector('img');
 let videoStream;
 let rotation = 0;
+let takenPhotos;
 
 function camaraPreview() {
     let camaraPreview = document.getElementById("camaraPreview");
@@ -53,8 +54,8 @@ function capturePhoto() {
     canvas.width = video.videoWidth;
     canvas.height = video.videoHeight;
     canvas.getContext('2d').drawImage(video, 0, 0);
-    screenshotImage.src = canvas.toDataURL('image/webp');
-    screenshotImage.classList.remove('d-none');
+    canvas.toDataURL('image/webp');
+    
 }
 
 function closePhoto() {
