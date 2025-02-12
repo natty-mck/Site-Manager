@@ -295,8 +295,8 @@ label {
     transform: translateX(-50%);
     top: 10%;
     z-index: 99;
-    width: 70%;
-    height: max-content;
+    width: 100vw;
+    height: 100vh;
     background-color: aliceblue;
     border-radius: 5px;
     border: 3px grey solid;
@@ -304,12 +304,12 @@ label {
 }
 
 
-.display-cover {
+#display-cover {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 80%;
-    height: 80%;
+    max-width: 100%;
+    max-height: 100%;
     position: relative;
     left: 50%;
     transform: translateX(-50%);
@@ -317,50 +317,19 @@ label {
     margin-bottom: 1px;
 }
 
-video {
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.2);
+#vid {
+    width: 90vw;
+    height: 90vh;
 }
 
-
-.camara-options {
-    position: relative;
-    text-align: center;
+#captureButton {
+    position: absolute;
     left: 50%;
-    width: max-content;
-    height: max-content;
-    transform: translateX(-50%);
+    transform: translate(-50%);
+    top: 80%;
+    height: 10%;
+    z-index: 99;
 }
 
-#camara-warning {
-    color: red
-}
 
-.controls {
-    position: relative;
-    top: 20%;
-    width: max-content;
-    height: max-content;
-}
 
-#take-photo-button {
-    position: relative;
-    padding: 10px;
-    background-color: rgb(114, 182, 202);
-    color: white;
-    border-radius: 12px;
-    margin-bottom: 10px;
-}
-
-#camara-select {
-    position: relative;
-    margin-bottom: 10px;
-}
-
-#rotate-camara-button {
-    position: relative;
-    padding: 5px;
-    border-radius: 4px;
-    margin-bottom: 10px;
-}

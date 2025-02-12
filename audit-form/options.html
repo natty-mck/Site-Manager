@@ -135,32 +135,20 @@
     </section>
 
     <div id="overlay">
-        <!--<button id="exit_overlay" onclick="exit_overlay()"> Close </button>-->
         <button id="save_overlay" onclick="save_overlay()"> Save </button>
     </div>
 
-    <!-- take photo from camara overlay -->
+    <!-- Camera preview to take photo -->
     <section id="camaraPreview">
       <button onclick="closePhoto()" id="close-photo-button" title="Back"> <img height="22px"  src="../images/exit_button.png"> </button>
-      <div class="display-cover">
+      <div id="display-cover">
           <video id="vid" autoplay></video>
-          <canvas id="vidCanvas" style="display: none;" class="d-none"></canvas>
       </div>
+      <img id="captureButton" src="/images/cameraCapture.png">
 
-      <img id="vidImg" style="display: none;" class="screenshot-image d-none" alt="">
 
-      <div class="camara-options">
-          <label for ="camara-select"> Select Camara </label> <br>
-          <select name="camara-select" id="camera-selects" class="custom-select">
-              <option value="">Select camera</option>
-          </select>
-          <br>
-          <button onclick="RotateCamara()" id="rotate-camara-button" title="Rotate Camara">Rotate <img height="22px" src="../images/camara_rotate.png"> </button>
-          <p id="camara-warning"> Warning: No Camara Found </p>
-          <br>
-          <button onclick="capturePhoto()" id="take-photo-button" title="Take Photo"><img height="35px" src="../images/take_photo.png"></button> <br>
-          
-      </div> 
+
+
     </section>
 
 

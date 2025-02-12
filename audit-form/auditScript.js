@@ -23,9 +23,7 @@ const max_question = 26;
 var currentView = 1;
 var previewBase = "PDFpreview-container-";
 
-if (window.location.pathname == "/auditMeta.html") {
-    checkMeta();
-}
+
 
 function toMainMenu() {
     window.location.href = ("../index.html");
@@ -898,4 +896,10 @@ function goBack() {
         currentPreview = document.getElementById(currentPreview);
         currentPreview.style.display = "block"
     }
+}
+
+
+
+if (window.location.pathname == "/auditMeta.html") {
+    checkMeta();
 }
