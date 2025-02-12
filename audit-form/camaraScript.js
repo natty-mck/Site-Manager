@@ -1,8 +1,8 @@
-
+const canvas = document.getElementById('canvas');
+const context = canvas.getContext('2d');
+const video = document.getElementById('vid');
 
 function camaraPreview() {
-    // Select the video element
-    const video = document.getElementById('vid');
     document.getElementById("camaraPreview").style.display = "block";
 
     // Request access to the camera
@@ -20,6 +20,11 @@ function camaraPreview() {
     document.body.style.overflowY = "hidden"
       
 }
+
+function takePhoto() {
+    context.drawImage(video, 0, 0, canvas.width, canvas.height);
+}
+
 
 function closePhoto() {
     document.getElementById("camaraPreview").style.display = "none";

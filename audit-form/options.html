@@ -143,8 +143,11 @@
       
       <div id="display-cover">
           <button onclick="closePhoto()" id="close-photo-button" title="Back"> <img height="22px"  src="../images/exit_button.png"> </button>
-          <video id="vid" autoplay></video>
-          <img id="captureButton" src="/images/cameraCapture.png">
+          <video id="vid" autoplay playsinline></video>
+          <img onclick="takePhoto()" id="captureButton" src="/images/cameraCapture.png">
+
+          <!--Canvas to capture camera feed-->
+          <canvas id="canvas" width="640" height="480"></canvas>
       </div>
       
 

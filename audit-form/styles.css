@@ -318,8 +318,11 @@ label {
 }
 
 #vid {
+    position: relative;
     width: 100vw;
     height: 100vh;
+    left: 50%;
+    transform: translate(-50%);
 }
 
 #close-photo-button {
