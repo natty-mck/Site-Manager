@@ -327,11 +327,14 @@ label {
 
 #close-photo-button {
     position: absolute;
-    left: 30px;
-    top: 10%;
+    left: 100px;
+    top: 100px;
     color: white;
     background-color:#575252;
     z-index: 99;
+    border: 0px;
+    padding: 5px;
+    border-radius: 4px;
 }
 
 #captureButton {
