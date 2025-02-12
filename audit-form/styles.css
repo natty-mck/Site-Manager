@@ -318,8 +318,17 @@ label {
 }
 
 #vid {
-    width: 90vw;
-    height: 90vh;
+    width: 100vw;
+    height: 100vh;
+}
+
+#close-photo-button {
+    position: absolute;
+    left: 30px;
+    top: 10%;
+    color: white;
+    background-color:#575252;
+    z-index: 99;
 }
 
 #captureButton {
@@ -327,8 +336,12 @@ label {
     left: 50%;
     transform: translate(-50%);
     top: 80%;
-    height: 10%;
+    height: 100px;
     z-index: 99;
+    border: 1px solid black;
+    padding: 10px;
+    border-radius: 90%;
+    background: rgba(76, 76, 76, 0.1);
 }
 
 
