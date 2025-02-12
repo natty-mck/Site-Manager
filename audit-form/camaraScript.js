@@ -7,9 +7,14 @@ function camaraPreview(newIndex) {
     index = newIndex;
     document.getElementById("camaraPreview").style.display = "block";
 
+    const constraints = {
+      video: {
+        facingMode: "environment"
+      }}
+
     // Request access to the camera
     navigator.mediaDevices
-      .getUserMedia({ video: true })
+      .getUserMedia(constraints)
       .then((stream) => {
         // Set the video element's source object to the stream
         video.srcObject = stream;
@@ -35,37 +40,4 @@ function closePhoto() {
     document.body.style.overflowY = "auto"
 }
 
-/*
-let currentFacingMode = 'user'; // Start with the front camera
-      const video = document.getElementById('video');
-      const flipButton = document.getElementById('flipCamera');
 
-      function camaraPreview(facingMode) {
-        const constraints = {
-          video: {
-            facingMode: facingMode
-          }
-        };
-
-        navigator.mediaDevices
-          .getUserMedia(constraints)
-          .then((stream) => {
-            video.srcObject = stream;
-          })
-          .catch((error) => {
-            console.error('Error accessing the camera:', error);
-            alert('Error accessing the camera. Please check your permissions.');
-          });
-
-        document.getElementById("camaraPreview").scrollIntoView();
-        document.body.style.overflowY = "hidden";
-      }
-
-      // Add an event listener to the flip button
-      flipButton.addEventListener('click', () => {
-        currentFacingMode = currentFacingMode === 'user' ? 'environment' : 'user';
-        camaraPreview(currentFacingMode);
-      });
-
-      // Initial call to show the front camera
-*/
