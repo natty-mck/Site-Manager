@@ -308,7 +308,7 @@ label {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 100%;
+    width: max-content;
     max-height: 100%;
     position: relative;
     left: 50%;
