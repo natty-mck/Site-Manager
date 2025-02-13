@@ -32,6 +32,8 @@ function takePhoto() {
     context.drawImage(video, 0, 0, canvas.width, canvas.height);
     document.getElementById(index + "takePhoto").innerText = "Photo Taken"
     closePhoto()
+    addTakenPhoto(index) //defined in auditScript  
+
 }
 
 

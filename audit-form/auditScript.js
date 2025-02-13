@@ -903,3 +903,9 @@ function goBack() {
 if (window.location.pathname == "/auditMeta.html") {
     checkMeta();
 }
+
+function addTakenPhoto(index) {
+    let photo = document.getElementById("canvas").toDataURL()
+    photos.push("\"" + photo + "\"", photo_category, index);
+    console.log(photos)
+}
